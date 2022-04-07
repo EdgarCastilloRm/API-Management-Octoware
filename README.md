@@ -17,7 +17,9 @@
 ## Reglas para el equipo:
 
 1. Hacer pull a la rama cada 30 minutos.
-2. Mantener estándar de programación.
-3. Avisar por el grupo después de concluir con el desarrollo de una funcionalidad.
-4. Avisar por el grupo después de finalizar las pruebas a la funcionalidad.
-5. Avisar cuando se hagan merge, pull request o cerrar una rama.
+2. Usar install packages para cualquier paquetería nueva implementada en el proyecto.
+3. Usar el gitignore para poner los archivos bullshit dentro.
+4. Mantener estándar de programación.
+5. Avisar por el grupo después de concluir con el desarrollo de una funcionalidad.
+6. Avisar por el grupo después de finalizar las pruebas a la funcionalidad.
+7. Avisar cuando se hagan merge, pull request o cerrar una rama.
