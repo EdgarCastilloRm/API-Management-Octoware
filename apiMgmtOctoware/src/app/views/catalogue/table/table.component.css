@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  background-color: #E1DDDD;
+  opacity: 50%;
+  transition: all 1000ms;
+}
+
+
+.search-bar {
+  width: 31rem;
+  padding: 0 8.5rem 0 1rem;
+}
+  /* font-size: larger; /
+}
+
+.filterTag{
+  color:#c0c0c0;
+}
+
+/ .mat-form-field-infix {
+  border-top: 0em solid transparent !important;
+} */
+
+hr {
+  color: transparent;
+  border:0px
+}

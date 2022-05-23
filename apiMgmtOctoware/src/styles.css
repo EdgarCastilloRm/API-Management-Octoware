@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+  width: 7px;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar-track {
+  background-color: lightgrey;
+  border-radius: 16px;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 16px;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar-button {
+  display: none;
+}

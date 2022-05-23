@@ -1,0 +1,42 @@
+mat-toolbar {
+    background-color: #002171;
+}
+
+::ng-deep .mat-menu-content {
+
+    background-color: #002171;
+}
+
+mat-menu-item {
+    background-color: #002171;
+}
+
+button {
+    color: white;
+    background-color: #002171;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+img {
+    min-width: 25px;
+    max-width: 200px;
+    max-height: 25px;
+    position: relative;
+}
+
+.account-picture {
+    max-width: 25px;
+    min-height: 25px;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    padding: 25%;
+
+}

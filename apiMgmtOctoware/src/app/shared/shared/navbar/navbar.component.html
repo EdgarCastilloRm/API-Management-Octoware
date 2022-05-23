@@ -1,0 +1,48 @@
+<mat-toolbar class="navbar">
+    <button mat-button routerLink="/dashboard">
+      <img
+        src="https://www.ipointsystems.com/cms-media/ips/logos/menu-bar/logo-ips-280x47-c.png"
+        alt="Logo de Inflection Point"
+      />
+    </button>
+  
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+  
+    <div fxLayout="row" fxShow="false" fxShow.gt-md>
+      <button mat-button routerLink="/dashboard">Dashboard</button>
+      <button mat-button routerLink="/catalogue">Catalogue</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'SuperUser'" routerLink="/add_api">Edit Mode</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'SuperUser'" routerLink="/gestion-de-usuarios">User Mgmt</button>
+    </div>
+  
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-md>
+      <mat-icon>menu</mat-icon>
+    </button>
+  
+    <button mat-button [mat-menu-trigger-for]="menuCuenta">
+  
+      <img *ngIf="!userData.photoUrl"
+        class="account-picture"
+        src="https://www.logolynx.com/images/logolynx/4b/4beebce89d681837ba2f4105ce43afac.png"
+        alt="Cuenta"
+      />
+      <img *ngIf="userData.photoUrl"
+        class="account-picture"
+        src={{userData.photoUrl}}
+        alt="Cuenta"
+      />
+    </button>
+  </mat-toolbar>
+  
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+    <button mat-menu-item routerLink="/catalogue">Catalogue</button>
+    <button mat-menu-item *ngIf="userData.tipo_usr == 'Admin'" routerLink="/add_api">Edit Mode</button>
+    <button mat-menu-item *ngIf="userData.tipo_usr == 'SuperUser'" routerLink="/gestion-de-usuarios">User Mgmt</button>
+  </mat-menu>
+  
+  <mat-menu #menuCuenta="matMenu">
+    <button (click)="signOut()" mat-menu-item>Log Out</button>
+  </mat-menu>
+  

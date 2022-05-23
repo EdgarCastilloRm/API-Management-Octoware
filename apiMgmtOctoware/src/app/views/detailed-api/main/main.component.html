@@ -1,0 +1,195 @@
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+      <button mat-button (click)="getApiInfo(dataSource.id_api)" class="title_sidebar_btn">
+        <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
+      </button>
+      <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
+      <h2 class="subtitle_sidebar">Endpoints</h2>
+      <mat-expansion-panel *ngFor="let cat of categorias">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ cat }}
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+                      Descripción no necesaria
+                  </mat-panel-description> -->
+        </mat-expansion-panel-header>
+  
+        <button mat-button (click)="getEndpoint(cat)" class="btn">
+          <p class="texto_btn">Endpoint method</p>
+          <p class="texto_btn metodo">GET</p>
+        </button>
+      </mat-expansion-panel>
+    </mat-sidenav>
+    <mat-sidenav-content
+      class="card-wrapper"
+      [ngSwitch]="flag_is_api"
+      dynamicHeight
+    >
+      <mat-card class="example-card" *ngSwitchCase="'true'" dynamicHeight>
+        <mat-card-header>
+          <mat-card-title>{{ dataSource.nombre_api }}</mat-card-title>
+          <mat-card-subtitle> API </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, deserunt.</p> -->
+          <table>
+            <tr>
+              <td>
+                <h3>General information</h3>
+                <mat-card-subtitle>{{
+                  dataSource.descripcion_api
+                }}</mat-card-subtitle>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>Version</h3>
+                <mat-card-subtitle>{{ dataSource.version_api }}</mat-card-subtitle>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>URL</h3>
+                <mat-card-subtitle>{{ dataSource.url_base }}</mat-card-subtitle>
+              </td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-tab-group *ngSwitchCase="'false'">
+        <mat-tab label="Info">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{ dataSource.nombre_api }}</mat-card-title>
+              <mat-card-subtitle> Method </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, deserunt.</p> -->
+  
+              <table>
+                <tr>
+                  <td class="first_column">
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Perferendis consequuntur iste reprehenderit qui quisquam
+                      magni hic, totam voluptatibus dolor repudiandae laudantium
+                      voluptas. Sequi ipsam, corrupti repellendus accusamus
+                      reprehenderit laudantium, quos dolores laboriosam illum quo
+                      tenetur, ab iusto nulla! Maxime quibusdam consequatur
+                      ducimus quis facilis ratione quas! Asperiores perspiciatis
+                      aliquid quae!
+                    </p>
+                  </td>
+                  <td class="second_column">
+                    <h4 class="Request">Request Example</h4>
+                    <mat-card class="mini_card">
+                      <mat-card-content>
+                        <p>
+                          curl --Request GET --url https://api.spotify.com
+                          --header authorization
+                        </p>
+                      </mat-card-content>
+                    </mat-card>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="first_column">
+                    <h3>URL+extension</h3>
+                    <mat-card-subtitle>{{
+                      dataSource.url_base
+                    }}</mat-card-subtitle>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="first_column">
+                    <h3>Autentication</h3>
+                    <mat-card-subtitle>{{
+                      dataSource.api_key
+                    }}</mat-card-subtitle>
+                  </td>
+                  <td class="second_column">
+                    <h4 class="Request">Response Example</h4>
+                    <mat-card class="mini_card">
+                      <mat-card-content>
+                        <p>
+                          curl --Request GET --url https://api.spotify.com
+                          --header authorization
+                        </p>
+                      </mat-card-content>
+                    </mat-card>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="first_column">
+                    <h3>Query</h3>
+                    <mat-card-subtitle>{{ dataSource.id_api }}</mat-card-subtitle>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="first_column">
+                    <h3>Responses</h3>
+                    <mat-card-subtitle>{{ dataSource.id_api }}</mat-card-subtitle>
+                  </td>
+                </tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Make Request">
+          <mat-card>
+            <mat-card-content>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field style="margin:5px; width: 10%" appearance="outline" class="w-100">
+                                <mat-label>Request Method</mat-label>
+                                <mat-select [(value)]="selectedRequestMethod">
+                                    <mat-option *ngFor="let method of requestMethods" [value]="method">
+                                        {{ method }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field style="margin:5px; width: 80%" appearance="outline" class="w-100">
+                              <mat-label>API Endpoint</mat-label>
+                              <input type="url" matInput placeholder="Enter URL here..." #end="ngModel" [(ngModel)]="endpointURL">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        mat-flat-button 
+                        [disabled]="!endpointURL"
+                        color="primary" 
+                        (click)="sendRequest()"
+                    >
+                        SEND REQUEST
+                    </button>
+                    <br>
+                    <br>
+                    <div class="w-100" style="background-color: black; padding: 1rem; min-height: 5rem;">
+                        <mat-progress-spinner 
+                            *ngIf="loadingState" 
+                            class="d-block mx-auto" 
+                            color="primary" 
+                            mode="indeterminate"
+                            style="margin: 0 auto"
+                        ></mat-progress-spinner>
+                        <pre 
+                            *ngIf="responseData" 
+                            style="color:yellow; white-space: pre-wrap;"
+                        >{{ responseData }}</pre>
+                        <pre 
+                            *ngIf="responseError" 
+                            style="color:indianred; white-space: pre-wrap;"
+                        >{{ responseError }}</pre>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

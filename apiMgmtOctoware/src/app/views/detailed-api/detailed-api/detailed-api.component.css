@@ -1,0 +1,50 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    height: 100%;
+  }
+  
+  body {
+    min-height: 100%;
+  }
+  
+  .grid-container > * {
+    border-radius: 0px;
+  }
+  
+  .navbar {
+    grid-area: navbar;
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  .main {
+    grid-area: main;
+    background-color: wheat;
+    overflow-y:hidden;
+  }
+  
+  .grid-container {
+    display: grid;
+    gap: 0px;
+    grid-template:
+      "navbar" 50px
+      "main" auto
+  }
+  
+  @media (min-width: 900px) {
+    .grid-container {
+      grid-template:
+        "navbar navbar navbar" 4rem
+        "main  main  main" auto 
+    }
+  }
+  
+  

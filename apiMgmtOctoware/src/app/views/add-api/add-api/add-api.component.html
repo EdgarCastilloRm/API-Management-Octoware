@@ -1,0 +1,32 @@
+<body class="grid-container">
+    <nav class="navbar">
+      <app-navbar></app-navbar>
+    </nav>
+    <article class="main">
+        <div class="container">
+            <mat-card>
+                <mat-card-header>
+                    Add new API
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="form">
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Enter the API's name</mat-label>
+                            <input matInput placeholder="New API's name" formControlName="nombre_api" required>
+                        </mat-form-field>
+                        <mat-form-field class="demo-full-width">
+                            <input matInput placeholder="Version" formControlName="version_api" required>
+                        </mat-form-field>
+                        <mat-form-field class="demo-full-width">
+                            <textarea matInput placeholder="General information" formControlName="descripcion_api" required></textarea>
+                        </mat-form-field>
+                        <mat-form-field class="demo-full-width">
+                            <input matInput placeholder="URL" formControlName="url_base" required>
+                        </mat-form-field>
+                        <button mat-raised-button (click)="postAPI()">Submit</button>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </article>
+  </body>
