@@ -4,7 +4,7 @@ import { delay, Observable } from 'rxjs';
 import { UserInfo } from '../models/basicInfoUser';
 import { StorageService } from './storage.service';
 import { TableDataResponse } from '../models/catalogTableData';
-import { DetailedAPI } from '../models/detailedApiData';
+import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Response } from '../models/detailedApiData';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +69,26 @@ export class DataService {
 
   public postAPI(body:any){
     return this.http.post("http://localhost:4000/apis", body);
+  }
+
+  getCategoriesByID(id_api:Number){
+    return this.http.get<Categories[]>("http://localhost:4000/categories/" + id_api);
+  }
+
+  getEndpointsByCat(){
+    return this.http.get<Endpoints[]>("http://localhost:4000/endpoints/");
+  }
+
+  getSpecificEndpointByID(id_end:Number){
+    return this.http.get<SpecificEndpoint>("http://localhost:4000/endpoints/" + id_end);
+  }
+
+  getEndpointParams(id_end:Number){
+    return this.http.get<Param[]>("http://localhost:4000/query/" + id_end);
+  }
+
+  getEndpointResponse(id_end:Number){
+    return this.http.get<Response[]>("http://localhost:4000/response/" + id_end);
   }
 
 }

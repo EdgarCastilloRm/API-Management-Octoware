@@ -17,12 +17,6 @@ export class AddApiComponent implements OnInit {
   constructor(private dataService: DataService, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      nombre_api: ['', Validators.required],
-      version_api: ['', Validators.required],
-      url_base: ['', Validators.required],
-      descripcion_api: ['', Validators.required]
-    })
   }
 
   postAPI() {

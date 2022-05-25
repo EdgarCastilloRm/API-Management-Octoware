@@ -71,7 +71,7 @@ export class LoginComponent implements OnDestroy {
 
   getToken() {
     if(this.user.provider == 'MICROSOFT'){
-      console.log(this.user);
+
       var body = { name: this.user.name, email: this.user.email };
       this.dataService.verifyMS(body).subscribe((response: any) => {
         if (response) {
@@ -98,7 +98,6 @@ export class LoginComponent implements OnDestroy {
           email: response[0].email,
           tipo_usr: response[0].tipo_usr
         }
-        console.log(this.basicInfo);
         this.dataService.setJsonValue('currentUser', this.basicInfo);
       }
     });

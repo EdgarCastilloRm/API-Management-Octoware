@@ -19,7 +19,7 @@ export class TableComponent implements OnInit {
     this.listar()
   }
 
-  displayedColumns: string[] = ['nombre_api', 'tipo_disp', 'seguridad_api', 'ult_conexion_api', 'version_api'];
+  displayedColumns: string[] = ['nombre_api', 'disp_api', 'seguridad_api', 'ult_conexion_api', 'version_api'];
   dataSource = new MatTableDataSource<TableData>([]);
   _dataSource = new MatTableDataSource<TableData>([]);
 
@@ -36,7 +36,6 @@ export class TableComponent implements OnInit {
   listar() {
     this._entriesService.getEntries().subscribe(
       response => {
-        console.log(response);
         if(response.count > 0){
           this.dataSource.data = response.entries;
           this._dataSource.data = response.entries
