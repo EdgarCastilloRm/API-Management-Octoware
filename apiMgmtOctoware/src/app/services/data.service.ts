@@ -4,7 +4,7 @@ import { delay, Observable } from 'rxjs';
 import { UserInfo } from '../models/basicInfoUser';
 import { StorageService } from './storage.service';
 import { TableDataResponse } from '../models/catalogTableData';
-import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Response } from '../models/detailedApiData';
+import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from '../models/detailedApiData';
 
 @Injectable({
   providedIn: 'root'
@@ -88,7 +88,7 @@ export class DataService {
   }
 
   getEndpointResponse(id_end:Number){
-    return this.http.get<Response[]>("http://localhost:4000/response/" + id_end);
+    return this.http.get<Resp[]>("http://localhost:4000/response/" + id_end);
   }
 
 }

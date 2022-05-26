@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
+import { DetailedAPI, Categories, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({

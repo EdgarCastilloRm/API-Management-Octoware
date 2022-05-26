@@ -47,7 +47,7 @@ export interface Param {
     tipo_param:        string;
 }
 
-export interface Response  {
+export interface Resp {
     id_respuestas_end: number;
     name_resp:         string;
     tipo_param:        string;

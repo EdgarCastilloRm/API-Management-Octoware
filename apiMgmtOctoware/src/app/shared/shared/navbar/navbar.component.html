@@ -12,7 +12,7 @@
     <div fxLayout="row" fxShow="false" fxShow.gt-md>
       <button mat-button routerLink="/dashboard">Dashboard</button>
       <button mat-button routerLink="/catalogue">Catalogue</button>
-      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'SuperUser'" routerLink="/add_api">Edit Mode</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'SuperUser'" routerLink="/edit_mode">Edit Mode</button>
       <button mat-button *ngIf="userData.tipo_usr == 'SuperUser'" routerLink="/gestion-de-usuarios">User Mgmt</button>
     </div>
   
@@ -38,7 +38,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/dashboard">Dashboard</button>
     <button mat-menu-item routerLink="/catalogue">Catalogue</button>
-    <button mat-menu-item *ngIf="userData.tipo_usr == 'Admin'" routerLink="/add_api">Edit Mode</button>
+    <button mat-menu-item *ngIf="userData.tipo_usr == 'Admin'" routerLink="/edit_mode">Edit Mode</button>
     <button mat-menu-item *ngIf="userData.tipo_usr == 'SuperUser'" routerLink="/gestion-de-usuarios">User Mgmt</button>
   </mat-menu>
   

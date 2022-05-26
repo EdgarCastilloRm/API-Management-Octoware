@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  background-color: #E1DDDD;
+  opacity: 50%;
+  transition: all 1000ms;
+}
+
+.search-bar {
+  width: 31rem;
+  margin: 16px 0 0 16px ;
+}
+
+.add {
+  background-color: #c75b39;
+  font-size: medium;
+  color: white;
+  float: right;
+  margin: 28px 16px 0 0 ;
+}
+
+hr {
+  color: transparent;
+  border:0px
+}

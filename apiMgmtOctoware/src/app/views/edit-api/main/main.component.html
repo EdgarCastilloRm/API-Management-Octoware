@@ -1,0 +1,131 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <button
+      mat-button
+      (click)="getApiInfo(dataSource.id_api)"
+      class="title_sidebar_btn"
+    >
+      <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
+    </button>
+    <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
+    <h2 class="subtitle_sidebar">Endpoints</h2>
+    <mat-expansion-panel *ngFor="let cat of categories">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ cat.nombre_cat }}
+        </mat-panel-title>
+        <!-- <mat-panel-description>
+                        Descripción no necesaria
+                    </mat-panel-description> -->
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let end of endpoints">
+        <button
+          mat-button
+          *ngIf="cat.id_cat == end.id_cat"
+          (click)="getEndpoint(end.id_end)"
+          class="btn"
+        >
+          <p class="texto_btn">{{ end.nombre_end }}</p>
+          <p *ngIf="end.tipo_end == 'GET'" class="texto_btn get">
+            {{ end.tipo_end }}
+          </p>
+          <p *ngIf="end.tipo_end == 'POST'" class="texto_btn post">
+            {{ end.tipo_end }}
+          </p>
+          <p *ngIf="end.tipo_end == 'DELETE'" class="texto_btn delete">
+            {{ end.tipo_end }}
+          </p>
+          <p *ngIf="end.tipo_end == 'PUT'" class="texto_btn put">
+            {{ end.tipo_end }}
+          </p>
+        </button>
+      </div>
+    </mat-expansion-panel>
+  </mat-sidenav>
+  <mat-sidenav-content
+    class="card-wrapper"
+    [ngSwitch]="flag_is_api"
+    dynamicHeight
+  >
+    <mat-card class="example-card" *ngSwitchCase="'true'" dynamicHeight>
+      <mat-card-title>{{ dataSource.nombre_api }}</mat-card-title>
+      <mat-card-subtitle> API </mat-card-subtitle>
+      <mat-card-content>
+        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, deserunt.</p> -->
+        <table>
+          <tr>
+            <td>
+              <h3>General information</h3>
+              <mat-card-subtitle>{{
+                dataSource.descripcion_api
+              }}</mat-card-subtitle>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3>Version</h3>
+              <mat-card-subtitle>{{
+                dataSource.version_api
+              }}</mat-card-subtitle>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h3>URL</h3>
+              <mat-card-subtitle>{{ dataSource.url_base }}</mat-card-subtitle>
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngSwitchCase="'false'" class="example-card grid-container">
+      <div class="info">
+        <mat-card-content>
+          <mat-card-title>{{ selectedEndpoint.nombre_end }}</mat-card-title>
+          <mat-card-subtitle> Method </mat-card-subtitle>
+          <p>
+            {{ selectedEndpoint.docum_end }}
+          </p>
+          <h3>URL+extension</h3>
+          <mat-card-subtitle>{{ selectedEndpoint.url_end }}</mat-card-subtitle>
+          <h3>Autentication</h3>
+          <mat-card-subtitle *ngIf="dataSource.api_key != 'NA'">
+            Using API Key.
+          </mat-card-subtitle>
+          <mat-card-subtitle *ngIf="dataSource.api_key == 'NA'">
+            {{ dataSource.api_key }}
+          </mat-card-subtitle>
+          <h3>Query</h3>
+          <mat-card-subtitle *ngFor="let param of params"
+            >{{ param.nombre_param }}
+            <b>{{ param.tipo_param }}</b></mat-card-subtitle
+          >
+          <h3>Responses</h3>
+          <mat-card-subtitle *ngFor="let resp of responses"
+            >{{ resp.name_resp }}
+            <b>{{ resp.tipo_param }}</b></mat-card-subtitle
+          >
+        </mat-card-content>
+      </div>
+      <div class="examples">
+        <h4 class="Request">Request Example</h4>
+        <mat-card class="mini_card">
+          <mat-card-content>
+            <p>
+              {{ selectedEndpoint.pruebas_end }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+        <h4 class="Request">Response Example</h4>
+        <mat-card class="mini_card">
+          <mat-card-content>
+            <p>
+              {{ selectedEndpoint.expected_ans }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -20,7 +20,7 @@ import { AngularMaterialModule } from 'src/app/views/angular-materials/angular-m
     FlexLayoutModule
   ],
   exports: [
-    NavbarComponent,
+    NavbarComponent
   ]
 })
 export class SharedModule { }

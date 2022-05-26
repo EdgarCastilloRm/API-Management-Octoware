@@ -11,10 +11,12 @@ import { DashboardModule } from './views/dashboard/dashboard.module';
 import { LoginModule } from './views/login/login.module';
 import { DetailedApiModule } from './views/detailed-api/detailed-api.module';
 import { AddAPiModule } from './views/add-api/add-api.module';
+import { EditModeModule } from './views/edit-mode/edit-mode.module';
+import { EditApiModule } from './views/edit-api/edit-api.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,8 +26,10 @@ import { AddAPiModule } from './views/add-api/add-api.module';
     CatalogueModule,
     DashboardModule,
     AngularMaterialModule,
+    EditModeModule,
     SharedModule,
     DetailedApiModule,
+    EditApiModule,
     AddAPiModule
   ],
   providers: [],
