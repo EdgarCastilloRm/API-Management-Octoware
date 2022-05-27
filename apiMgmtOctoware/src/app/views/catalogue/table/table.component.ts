@@ -20,7 +20,8 @@ export class TableComponent implements OnInit {
       response => {
         if(response.count > 0){
           this.dataSource.data = response.entries;
-          this._dataSource.data = response.entries
+          this._dataSource.data = response.entries;
+          this.trueDataSource.data = response.entries;
         }
       }
     );
@@ -29,6 +30,7 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = ['nombre_api', 'disp_api', 'seguridad_api', 'ult_conexion_api', 'version_api'];
   dataSource = new MatTableDataSource<TableData>([]);
   _dataSource = new MatTableDataSource<TableData>([]);
+  trueDataSource = new MatTableDataSource<TableData>([]);
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,6 +40,10 @@ export class TableComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.matSort;
+  }
+
+  unSearch(){
+    this.dataSource.data = this._dataSource.data
   }
 
   searchBar(event: Event){
@@ -54,13 +60,16 @@ export class TableComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  selected = 'all';
   filterSecurity($event:any){
+    this._dataSource.data = this.trueDataSource.data
     let filteredData = _.filter(this._dataSource.data,(item: any) =>{
       return item.seguridad_api == $event.value;
     })
     this.dataSource.data = filteredData;
+    this._dataSource.data = filteredData;
     if($event.value.toLowerCase() === 'all'){
-      this.dataSource.data = this._dataSource.data;
+      this.dataSource.data = this.trueDataSource.data;
     }
   }
 }

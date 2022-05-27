@@ -3,12 +3,12 @@
     <hr>
     <div class="search-container">
         <mat-form-field appearance="fill" class="search-bar">
-            <input (keyup)="searchBar($event)" matInput placeholder="Search">
+            <input (input)="searchBar($event)" (keyup.backspace)="unSearch()" matInput placeholder="Search">
         </mat-form-field>
     
         <mat-form-field appearance="fill" class="dFilter">
             <mat-label class="filterTag">Security</mat-label>
-            <mat-select (selectionChange)="filterSecurity($event)">
+            <mat-select (selectionChange)="filterSecurity($event)" [(value)]="selected">
                 <mat-option value=1>True</mat-option>
                 <mat-option value=0>False</mat-option>
                 <mat-option value= "all">All</mat-option>

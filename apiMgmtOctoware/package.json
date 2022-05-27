@@ -24,6 +24,7 @@
     "@angular/router": "~13.3.0",
     "crypto-js": "^4.1.1",
     "ng2-toastr": "^4.1.2",
+    "packages": "^0.0.8",
     "rxjs": "~7.5.0",
     "secure-web-storage": "^1.0.2",
     "sweetalert2": "^11.4.17",
