@@ -4,7 +4,7 @@ mat-toolbar {
 
 ::ng-deep .mat-menu-content {
 
-    background-color: #002171;
+    background-color: lightgray;
 }
 
 mat-menu-item {
@@ -39,4 +39,22 @@ img {
     border-radius: 50%;
     padding: 25%;
 
+}
+
+.active {
+    background: #c75b39;
+}
+
+.userData{
+    margin: 8px;
+    text-align:end;
+    color: black;
+    padding: 3px;
+}
+
+.signOut{
+    margin: 0 0 0 2rem;
+    width: 70%;
+    text-align: center;
+    background-color: #002171;
 }

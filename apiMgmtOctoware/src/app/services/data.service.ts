@@ -51,7 +51,7 @@ export class DataService {
     return this.storageService.secureStorage.clear();
   }
 
-  getEntries(): Observable<TableDataResponse> {
+  getAPIs(): Observable<TableDataResponse> {
     return this.http.get<TableDataResponse>("http://localhost:4000/apis/table");
   }
 

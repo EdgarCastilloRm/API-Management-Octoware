@@ -1,36 +1,39 @@
 table {
-    width: 100%;
+  width: 100%;
 }
 
-.mat-row .mat-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
-}
-
-.mat-row:hover .mat-cell {
-  border-color: currentColor;
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  background-color: #E1DDDD;
-  opacity: 50%;
-  transition: all 1000ms;
+th{
+  background-color: #C6C6C6;
+  font-size: small;
 }
 
 .search-bar {
-  width: 31rem;
-  margin: 16px 0 0 16px ;
+  width: 50%;
+  padding: 0 8.5rem 0 0;
 }
 
 .add {
-  background-color: #c75b39;
   font-size: medium;
-  color: white;
   float: right;
-  margin: 28px 16px 0 0 ;
+  margin: 8px 0 0 0 ;
 }
 
-hr {
-  color: transparent;
-  border:0px
+button {
+  color: white;
+  background-color: #c75b39;
 }
+
+button:hover {
+  opacity: 80%;
+}
+
+.mat-icon-button{
+  background-color: transparent;
+}
+
+.container{
+  max-width: 90%;
+  margin: 2rem auto;
+}
+
+

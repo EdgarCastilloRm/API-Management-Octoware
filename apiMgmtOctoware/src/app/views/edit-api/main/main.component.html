@@ -8,15 +8,34 @@
       <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
     </button>
     <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
-    <h2 class="subtitle_sidebar">Endpoints</h2>
+    <div
+      style="
+        display: flex;
+        justify-content: left;
+        position: relative;
+        margin: 16px;
+        margin-left: 0;
+      "
+    >
+      <h2 class="endpointTitle">Endpoints</h2>
+      <button mat-icon-button matTooltip="Add Endpoint Category" matTooltipPosition="after">
+        <mat-icon style="color: #c75b39;" class="lilBtn">add_box</mat-icon>
+      </button>
+    </div>
     <mat-expansion-panel *ngFor="let cat of categories">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ cat.nombre_cat }}
+          <button mat-icon-button matTooltip="Change Category Name" matTooltipPosition="after" color="primary">
+            <mat-icon class="lilBtn">edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Delete Endpoint Category" matTooltipPosition="after">
+            <mat-icon style="color: #C71717;" class="lilBtn">delete</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Add Category Method" matTooltipPosition="after">
+            <mat-icon style="color: #c75b39;" class="lilBtn">add_box</mat-icon>
+          </button>
         </mat-panel-title>
-        <!-- <mat-panel-description>
-                        Descripción no necesaria
-                    </mat-panel-description> -->
       </mat-expansion-panel-header>
 
       <div *ngFor="let end of endpoints">
@@ -49,8 +68,17 @@
     dynamicHeight
   >
     <mat-card class="example-card" *ngSwitchCase="'true'" dynamicHeight>
-      <mat-card-title>{{ dataSource.nombre_api }}</mat-card-title>
+      <div class="finish">
+        <button mat-raised-button style="background-color: #c75b39; color: white">Finish Edition</button>
+      </div>
+      <mat-card-title>
+        <h1 class="apiTitle">{{ dataSource.nombre_api }}</h1>
+        <button mat-icon-button matTooltip="Edit Method" matTooltipPosition="after" color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-title>
       <mat-card-subtitle> API </mat-card-subtitle>
+      <hr />
       <mat-card-content>
         <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, deserunt.</p> -->
         <table>
@@ -79,11 +107,26 @@
         </table>
       </mat-card-content>
     </mat-card>
+
     <mat-card *ngSwitchCase="'false'" class="example-card grid-container">
+      <div class="titles">
+        <div class="finish">
+          <button mat-raised-button style="background-color: #c75b39; color: white">Finish Edition</button>
+        </div>
+        <mat-card-title>
+          <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
+          <button mat-icon-button matTooltip="Edit" matTooltipPosition="after" color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Delete Method" matTooltipPosition="after">
+            <mat-icon style="color: #C71717;" class="lilBtn">delete</mat-icon>
+          </button>
+        </mat-card-title>
+        <mat-card-subtitle> Method </mat-card-subtitle>
+        <hr/>
+      </div>
       <div class="info">
         <mat-card-content>
-          <mat-card-title>{{ selectedEndpoint.nombre_end }}</mat-card-title>
-          <mat-card-subtitle> Method </mat-card-subtitle>
           <p>
             {{ selectedEndpoint.docum_end }}
           </p>

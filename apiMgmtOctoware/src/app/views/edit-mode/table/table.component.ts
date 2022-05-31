@@ -3,11 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import * as _ from 'lodash';
 import { TableData } from 'src/app/models/catalogTableData';
 import { DataService } from 'src/app/services/data.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddApiComponent } from '../../add-api/add-api/add-api.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-table',
@@ -15,35 +15,36 @@ import { AddApiComponent } from '../../add-api/add-api/add-api.component';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  constructor(private _entriesService:DataService, public router: Router, private dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.listar()
-  }
-
-  displayedColumns: string[] = ['nombre_api', 'disp_api', 'seguridad_api', 'ult_conexion_api', 'version_api'];
-  dataSource = new MatTableDataSource<TableData>([]);
-  _dataSource = new MatTableDataSource<TableData>([]);
+  displayedColumns: string[] = ['nombre_api', 'disp_api', 'seguridad_api', 'ult_conexion_api', 'version_api', 'actions'];
+  dataSource!: MatTableDataSource<TableData>;
+  _dataSource!: MatTableDataSource<TableData>;
+  trueDataSource!: MatTableDataSource<TableData>;
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   @ViewChild(MatSort) matSort! : MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.matSort;
+  constructor(private api:DataService, public router: Router, private dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    this.getAllAPIs();
   }
 
-  listar() {
-    this._entriesService.getEntries().subscribe(
-      response => {
-        if(response.count > 0){
-          this.dataSource.data = response.entries;
-          this._dataSource.data = response.entries
-        }
+  getAllAPIs(){
+    this.api.getAPIs()
+    .subscribe({
+      next:(res)=>{
+        this.dataSource = new MatTableDataSource(res.entries);
+        this._dataSource = new MatTableDataSource(res.entries);
+        this.trueDataSource = new MatTableDataSource(res.entries);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.matSort;
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
       }
-    );
+    })
   }
 
   searchBar(event: Event){
@@ -55,24 +56,35 @@ export class TableComponent implements OnInit {
     }
   }
 
-  showDetailedProduct(data: TableData){
+  openDetailedEdit(data: TableData){
     const url = this.router.serializeUrl(this.router.createUrlTree(['edit/' + data.id_api]));
     window.open(url, '_blank');
   }
 
+  selected = 'all';
   filterSecurity($event:any){
+    this._dataSource.data = this.trueDataSource.data
     let filteredData = _.filter(this._dataSource.data,(item: any) =>{
       return item.seguridad_api == $event.value;
     })
     this.dataSource.data = filteredData;
+    this._dataSource.data = filteredData;
     if($event.value.toLowerCase() === 'all'){
-      this.dataSource.data = this._dataSource.data;
+      this.dataSource.data = this.trueDataSource.data;
     }
   }
-
-  onCreate(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    this.dialog.open(AddApiComponent, dialogConfig);
+  
+  unSearch(){
+    this.dataSource.data = this._dataSource.data
+  }
+  
+  openDialog() {
+    this.dialog.open(AddApiComponent, {
+      width:'40%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getAllAPIs();
+      }
+    })
   }
 }

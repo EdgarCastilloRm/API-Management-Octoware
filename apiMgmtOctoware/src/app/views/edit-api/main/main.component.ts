@@ -43,50 +43,86 @@ export class MainComponent implements OnInit {
     this.getEndpoints();
   }
 
-  getApiInfo(apiIdFromRoute: Number) {
+  getApiInfo(apiIdFromRoute: Number){
     this.dataService
-      .getDetailedAPI(apiIdFromRoute)
-      .subscribe((response) => {
-        this.dataSource = response;
-        if(this.dataSource != null){
-          this.flag_is_api = 'true';
-        }
-      });
+    .getDetailedAPI(apiIdFromRoute)
+    .subscribe({
+      next:(res)=>{
+        this.dataSource = res;
+        this.flag_is_api = 'true';
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
+      }
+    })
   }
 
   getCategoriesInfo(apiIdFromRoute: Number){
-    this.dataService.getCategoriesByID(apiIdFromRoute).subscribe((response) => {
-      this.categories = response;
-    });
+    this.dataService
+    .getCategoriesByID(apiIdFromRoute)
+    .subscribe({
+      next:(res)=>{
+        this.categories = res;
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
+      }
+    })
   }
 
   getEndpoints(){
-    this.dataService.getEndpointsByCat().subscribe((response) => {
-      this.endpoints = response;
-    });
-  }
-
-  getEndpoint(id_end: Number) {
-    this.getParams(id_end);
-    this.getResponses(id_end);
-    this.dataService.getSpecificEndpointByID(id_end).subscribe((response) => {
-      this.selectedEndpoint = response;
-      if (this.params != null && this.responses != null && this.selectedEndpoint != null){
-        this.flag_is_api = 'false';
+    this.dataService
+    .getEndpointsByCat()
+    .subscribe({
+      next:(res)=>{
+        this.endpoints = res;
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
       }
-    });
+    })
   }
 
   getParams(id_end: Number){
-    this.dataService.getEndpointParams(id_end).subscribe((response) => {
-      this.params = response;
-    });
+    this.dataService
+    .getEndpointParams(id_end)
+    .subscribe({
+      next:(res)=>{
+        this.params = res;
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
+      }
+    })
   }
 
   getResponses(id_end: Number){
-    this.dataService.getEndpointResponse(id_end).subscribe((response) => {
-      this.responses = response;
-    });
+    this.dataService
+    .getEndpointResponse(id_end)
+    .subscribe({
+      next:(res)=>{
+        this.responses = res;
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
+      }
+    })
+  }
+
+  getEndpoint(id_end: Number){
+    this.getParams(id_end);
+    this.getResponses(id_end);
+    this.dataService
+    .getSpecificEndpointByID(id_end)
+    .subscribe({
+      next:(res)=>{
+        this.selectedEndpoint = res;
+        this.flag_is_api = 'false';
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
+      }
+    })
   }
 
 

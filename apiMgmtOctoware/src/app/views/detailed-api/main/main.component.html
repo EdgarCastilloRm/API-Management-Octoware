@@ -1,36 +1,66 @@
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened>
-    <button mat-button (click)="getApiInfo(dataSource.id_api)" class="title_sidebar_btn">
-      <h1 class="title_sidebar">{{dataSource.nombre_api}}</h1>
+    <button
+      mat-button
+      (click)="getApiInfo(dataSource.id_api)"
+      class="title_sidebar_btn"
+    >
+      <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
     </button>
     <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
-    <h2 class="subtitle_sidebar">Endpoints</h2>
+    <div
+      style="
+        display: flex;
+        justify-content: left;
+        position: relative;
+        margin: 16px;
+        margin-left: 0;
+      "
+    >
+      <h2 class="endpointTitle">Endpoints</h2>
+    </div>
     <mat-expansion-panel *ngFor="let cat of categories">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ cat.nombre_cat }}
         </mat-panel-title>
-        <!-- <mat-panel-description>
-                      Descripción no necesaria
-                  </mat-panel-description> -->
       </mat-expansion-panel-header>
 
       <div *ngFor="let end of endpoints">
-        <button mat-button *ngIf="cat.id_cat == end.id_cat" (click)="getEndpoint(end.id_end)" class="btn">
-          <p class="texto_btn">{{end.nombre_end}}</p>
-          <p *ngIf="end.tipo_end == 'GET'" class="texto_btn get">{{end.tipo_end}}</p>
-          <p *ngIf="end.tipo_end == 'POST'" class="texto_btn post">{{end.tipo_end}}</p>
-          <p *ngIf="end.tipo_end == 'DELETE'" class="texto_btn delete">{{end.tipo_end}}</p>
-          <p *ngIf="end.tipo_end == 'PUT'" class="texto_btn put">{{end.tipo_end}}</p>
+        <button
+          mat-button
+          *ngIf="cat.id_cat == end.id_cat"
+          (click)="getEndpoint(end.id_end)"
+          class="btn"
+        >
+          <p class="texto_btn">{{ end.nombre_end }}</p>
+          <p *ngIf="end.tipo_end == 'GET'" class="texto_btn get">
+            {{ end.tipo_end }}
+          </p>
+          <p *ngIf="end.tipo_end == 'POST'" class="texto_btn post">
+            {{ end.tipo_end }}
+          </p>
+          <p *ngIf="end.tipo_end == 'DELETE'" class="texto_btn delete">
+            {{ end.tipo_end }}
+          </p>
+          <p *ngIf="end.tipo_end == 'PUT'" class="texto_btn put">
+            {{ end.tipo_end }}
+          </p>
         </button>
       </div>
-
     </mat-expansion-panel>
   </mat-sidenav>
-  <mat-sidenav-content class="card-wrapper" [ngSwitch]="flag_is_api" dynamicHeight>
+  <mat-sidenav-content
+    class="card-wrapper"
+    [ngSwitch]="flag_is_api"
+    dynamicHeight
+  >
     <mat-card class="example-card" *ngSwitchCase="'true'" dynamicHeight>
-        <mat-card-title>{{ dataSource.nombre_api }}</mat-card-title>
-        <mat-card-subtitle> API </mat-card-subtitle>
+      <mat-card-title>
+        <h1 class="apiTitle">{{ dataSource.nombre_api }}</h1>
+      </mat-card-title>
+      <mat-card-subtitle> API </mat-card-subtitle>
+      <hr />
       <mat-card-content>
         <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, deserunt.</p> -->
         <table>
@@ -39,13 +69,15 @@
               <h3>General information</h3>
               <mat-card-subtitle>{{
                 dataSource.descripcion_api
-                }}</mat-card-subtitle>
+              }}</mat-card-subtitle>
             </td>
           </tr>
           <tr>
             <td>
               <h3>Version</h3>
-              <mat-card-subtitle>{{ dataSource.version_api }}</mat-card-subtitle>
+              <mat-card-subtitle>{{
+                dataSource.version_api
+              }}</mat-card-subtitle>
             </td>
           </tr>
           <tr>
@@ -58,31 +90,42 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-tab-group *ngSwitchCase="'false'">
-      <mat-tab label="Info">
+    <mat-tab-group *ngSwitchCase="'false'" >
+      <mat-tab label="Info" >
         <mat-card class="example-card grid-container">
+          <div class="titles">
+            <mat-card-title>
+              <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
+            </mat-card-title>
+            <mat-card-subtitle> Method </mat-card-subtitle>
+            <hr />
+          </div>
           <div class="info">
             <mat-card-content>
-              <mat-card-title>{{ selectedEndpoint.nombre_end }}</mat-card-title>
-              <mat-card-subtitle> Method </mat-card-subtitle>
               <p>
-                {{selectedEndpoint.docum_end}}
+                {{ selectedEndpoint.docum_end }}
               </p>
-                  <h3>URL+extension</h3>
-                  <mat-card-subtitle>{{
-                    selectedEndpoint.url_end
-                    }}</mat-card-subtitle>
-                  <h3>Autentication</h3>
-                  <mat-card-subtitle *ngIf="dataSource.api_key != 'NA'">
-                    Using API Key.
-                  </mat-card-subtitle>
-                  <mat-card-subtitle *ngIf="dataSource.api_key == 'NA'">
-                    {{dataSource.api_key}}
-                  </mat-card-subtitle>
-                  <h3>Query</h3>
-                  <mat-card-subtitle *ngFor="let param of params">{{param.nombre_param}} <b>{{param.tipo_param}}</b></mat-card-subtitle>
-                  <h3>Responses</h3>
-                  <mat-card-subtitle *ngFor="let resp of responses">{{resp.name_resp}} <b>{{resp.tipo_param}}</b></mat-card-subtitle>
+              <h3>URL+extension</h3>
+              <mat-card-subtitle>{{
+                selectedEndpoint.url_end
+              }}</mat-card-subtitle>
+              <h3>Autentication</h3>
+              <mat-card-subtitle *ngIf="dataSource.api_key != 'NA'">
+                Using API Key.
+              </mat-card-subtitle>
+              <mat-card-subtitle *ngIf="dataSource.api_key == 'NA'">
+                {{ dataSource.api_key }}
+              </mat-card-subtitle>
+              <h3>Query</h3>
+              <mat-card-subtitle *ngFor="let param of params"
+                >{{ param.nombre_param }}
+                <b>{{ param.tipo_param }}</b></mat-card-subtitle
+              >
+              <h3>Responses</h3>
+              <mat-card-subtitle *ngFor="let resp of responses"
+                >{{ resp.name_resp }}
+                <b>{{ resp.tipo_param }}</b></mat-card-subtitle
+              >
             </mat-card-content>
           </div>
           <div class="examples">
@@ -90,7 +133,7 @@
             <mat-card class="mini_card">
               <mat-card-content>
                 <p>
-                  {{selectedEndpoint.pruebas_end}}
+                  {{ selectedEndpoint.pruebas_end }}
                 </p>
               </mat-card-content>
             </mat-card>
@@ -98,7 +141,7 @@
             <mat-card class="mini_card">
               <mat-card-content>
                 <p>
-                  {{selectedEndpoint.expected_ans}}
+                  {{ selectedEndpoint.expected_ans }}
                 </p>
               </mat-card-content>
             </mat-card>
@@ -111,31 +154,69 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-md-3">
-                  <mat-form-field style="margin:5px; width: 10%" appearance="outline" class="w-100">
+                  <mat-form-field
+                    style="margin: 5px; width: 10%"
+                    appearance="outline"
+                    class="w-100"
+                  >
                     <mat-label>Request Method</mat-label>
                     <mat-select [(value)]="selectedRequestMethod">
-                      <mat-option *ngFor="let method of requestMethods" [value]="method">
+                      <mat-option
+                        *ngFor="let method of requestMethods"
+                        [value]="method"
+                      >
                         {{ method }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field style="margin:5px; width: 80%" appearance="outline" class="w-100">
+                  <mat-form-field
+                    style="margin: 5px; width: 80%"
+                    appearance="outline"
+                    class="w-100"
+                  >
                     <mat-label>API Endpoint</mat-label>
-                    <input type="url" matInput placeholder="Enter URL here..." #end="ngModel" [(ngModel)]="endpointURL">
+                    <input
+                      type="url"
+                      matInput
+                      placeholder="Enter URL here..."
+                      #end="ngModel"
+                      [(ngModel)]="endpointURL"
+                    />
                   </mat-form-field>
                 </div>
               </div>
 
-              <button mat-flat-button [disabled]="!endpointURL" color="primary" (click)="sendRequest()">
+              <button
+                mat-flat-button
+                [disabled]="!endpointURL"
+                color="primary"
+                (click)="sendRequest()"
+              >
                 SEND REQUEST
               </button>
-              <br>
-              <br>
-              <div class="w-100" style="background-color: black; padding: 1rem; min-height: 5rem;">
-                <mat-progress-spinner *ngIf="loadingState" class="d-block mx-auto" color="primary" mode="indeterminate"
-                  style="margin: 0 auto"></mat-progress-spinner>
-                <pre *ngIf="responseData" style="color:yellow; white-space: pre-wrap;">{{ responseData }}</pre>
-                <pre *ngIf="responseError" style="color:indianred; white-space: pre-wrap;">{{ responseError }}</pre>
+              <br />
+              <br />
+              <div
+                class="w-100"
+                style="background-color: black; padding: 1rem; min-height: 5rem"
+              >
+                <mat-progress-spinner
+                  *ngIf="loadingState"
+                  class="d-block mx-auto"
+                  color="primary"
+                  mode="indeterminate"
+                  style="margin: 0 auto"
+                ></mat-progress-spinner>
+                <pre
+                  *ngIf="responseData"
+                  style="color: yellow; white-space: pre-wrap"
+                  >{{ responseData }}</pre
+                >
+                <pre
+                  *ngIf="responseError"
+                  style="color: indianred; white-space: pre-wrap"
+                  >{{ responseError }}</pre
+                >
               </div>
             </div>
           </mat-card-content>

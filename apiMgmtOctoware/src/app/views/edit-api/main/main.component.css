@@ -29,6 +29,7 @@ mat-sidenav-container {
   
   .subtitle_sidebar {
     padding: 5px;
+    margin:0;
   }
   
   .title_sidebar:hover {
@@ -50,7 +51,7 @@ mat-sidenav-container {
     text-align: right;
     color: white;
     background-color: green;
-    border-radius: 100%;
+    border-radius: 20%;
     padding: 0 2.5% 0 2.5%;
     font-size: medium;
     margin-right: 1rem;
@@ -136,12 +137,41 @@ mat-sidenav-container {
   li {
     list-style: none;
   }
-  
+
   mat-card-title {
-    font-size: 2rem !important ;
-    padding-bottom: 1rem;
+    display: flex;
+    justify-content:left;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  
+  .apiTitle{
+    margin:0;
+    margin-right: 8px;
+    display:flex;
+    align-items: center;
+    font-size: 2rem;
+    width: auto;
     color: #ff8a65;
     text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  .endpointTitle{
+    margin:0;
+    width: auto;
+    display:flex;
+    align-items: center;
+  }
+  
+  button{
+    width: auto
+  }
+
+  .lilBtn{
+    font-size: 20px;
+    margin-left: 5px;
+    text-align: center;
   }
   
   h3 {
@@ -161,10 +191,19 @@ mat-sidenav-container {
   .examples {
     grid-area: examples;
   }
+
+  .titles{
+    grid-area: titles;
+  }
   
   .grid-container {
     display: grid;
     gap: 5px;
-    grid-template: "info examples" auto;
+    grid-template:
+    "titles titles" auto
+    "info examples" auto;
   }
   
+  .finish{
+    float: right;
+  }

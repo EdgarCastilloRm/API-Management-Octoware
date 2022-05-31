@@ -3,8 +3,6 @@ table {
 }
 
 .mat-row .mat-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
   cursor: pointer;
 }
 
@@ -14,13 +12,12 @@ table {
   border-top: 1px solid transparent;
   background-color: #E1DDDD;
   opacity: 50%;
-  transition: all 1000ms;
 }
 
 
 .search-bar {
-  width: 31rem;
-  padding: 0 8.5rem 0 1rem;
+  width: 50%;
+  padding: 0 8.5rem 0 0;
 }
   /* font-size: larger; /
 }
@@ -33,7 +30,12 @@ table {
   border-top: 0em solid transparent !important;
 } */
 
-hr {
-  color: transparent;
-  border:0px
+td,
+th {
+  width: 25%;
+}
+
+.container{
+  max-width: 90%;
+  margin: 2rem auto;
 }

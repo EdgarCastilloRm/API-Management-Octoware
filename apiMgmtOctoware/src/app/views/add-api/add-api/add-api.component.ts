@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
@@ -11,58 +11,62 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-api.component.css']
 })
 export class AddApiComponent implements OnInit {
-  form: FormGroup = this.formBuilder.group({
-    nombre_api: [null,Validators.required],
-    version_api: [null, Validators.required],
-    url_base: [null, Validators.required],
-    descripcion_api: [null, Validators.required]
-  });
-  constructor(private dataService: DataService, private formBuilder: FormBuilder, private router: Router, private dialog:MatDialog) {}
+  apiForm !: FormGroup;
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
+  constructor(private formBuilder: FormBuilder, private api: DataService, private dialogRef: MatDialogRef<AddApiComponent>) { }
 
   ngOnInit(): void {
+    this.apiForm =  this.formBuilder.group({
+      nombre_api: [null,Validators.required],
+      version_api: [null, Validators.required],
+      url_base: [null, Validators.required],
+      descripcion_api: [null, Validators.required]
+    });
   }
 
-  postAPI() {
-    if(this.form.value.nombre_api != null && this.form.value.version_api != null && this.form.value.url_base != null && this.form.value.descripcion_api != null){
-      this.dataService
-      .postAPI({
-        nombre_api: this.form.value.nombre_api,
-        version_api:this.form.value.version_api,
-        url_base:this.form.value.url_base,
-        descripcion_api:this.form.value.descripcion_api
-      })
-      .subscribe((response) => {
-        console.log(response);
-      });
-      this.form.reset();
-      this.dialog.closeAll();
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+  addAPI(){
+    if(this.apiForm.valid){
+      this.api.postAPI(this.apiForm.value)
+      .subscribe({
+        next: (res)=>{
+          this.Toast.fire({
+            icon: 'success',
+            title: 'API was added successfully.',
+            color: '#FFFFFF',
+            background: '#329B22',
+            iconColor: '#FFFFFF'
+          })
+          this.apiForm.reset();
+          this.dialogRef.close('save');
         },
-        didClose: ()=>{
-          window.location.reload();
+        error: (err)=>{
+          this.Toast.fire({
+            icon: 'error',
+            title: 'Error while adding API.',
+            color: '#FFFFFF',
+            background: '#C71717',
+            iconColor: '#FFFFFF'
+          })
         }
       })
-      
-      Toast.fire({
-        icon: 'success',
-        title: 'API was added successfully.'
-      })
     }else{
-      Swal.fire({
-        title: 'Oops!',
-        text: 'Please fill all fields.',
+      this.Toast.fire({
         icon: 'error',
-        position: 'top',
-        toast: true,
-        background: 'lightgray',
-      });
+        title: 'Please fill all fields.',
+        color: '#FFFFFF',
+        background: '#C71717',
+        iconColor: '#FFFFFF'
+      })
     }
   }
 }

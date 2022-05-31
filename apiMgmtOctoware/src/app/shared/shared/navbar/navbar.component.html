@@ -10,10 +10,10 @@
     <span class="fill-remaining-space"></span>
   
     <div fxLayout="row" fxShow="false" fxShow.gt-md>
-      <button mat-button routerLink="/dashboard">Dashboard</button>
-      <button mat-button routerLink="/catalogue">Catalogue</button>
-      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'SuperUser'" routerLink="/edit_mode">Edit Mode</button>
-      <button mat-button *ngIf="userData.tipo_usr == 'SuperUser'" routerLink="/gestion-de-usuarios">User Mgmt</button>
+      <button mat-button routerLinkActive="active" routerLink="/dashboard">Dashboard</button>
+      <button mat-button routerLinkActive="active" routerLink="/catalogue">Catalogue</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'SuperUser'" routerLinkActive="active" routerLink="/edit_mode">Edit Mode</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'SuperUser'" routerLinkActive="active" routerLink="/gestion-de-usuarios">User Management</button>
     </div>
   
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-md>
@@ -43,6 +43,11 @@
   </mat-menu>
   
   <mat-menu #menuCuenta="matMenu">
-    <button (click)="signOut()" mat-menu-item>Log Out</button>
+    <div>
+      <h2 class="userData">{{userData.nombre_usr}}</h2>
+      <h4 class="userData">{{userData.email}}</h4>
+      <h4 class="userData">{{userData.tipo_usr}}</h4>
+    </div>
+    <button mat-button class="signOut" (click)="signOut()">Log Out</button>
   </mat-menu>
   
