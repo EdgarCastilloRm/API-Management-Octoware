@@ -13,6 +13,7 @@ import { DetailedApiModule } from './views/detailed-api/detailed-api.module';
 import { AddAPiModule } from './views/add-api/add-api.module';
 import { EditModeModule } from './views/edit-mode/edit-mode.module';
 import { EditApiModule } from './views/edit-api/edit-api.module';
+import { UserManagementModule } from './views/user-management/user-management.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EditApiModule } from './views/edit-api/edit-api.module';
     SharedModule,
     DetailedApiModule,
     EditApiModule,
-    AddAPiModule
+    AddAPiModule,
+    UserManagementModule
   ],
   providers: [],
   bootstrap: [AppComponent]

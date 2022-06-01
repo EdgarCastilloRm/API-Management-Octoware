@@ -10,6 +10,7 @@ import { DetailedApiComponent } from './views/detailed-api/detailed-api/detailed
 import { EditApiComponent } from './views/edit-api/edit-api/edit-api.component';
 import { EditModeComponent } from './views/edit-mode/edit-mode/edit-mode.component';
 import { LoginComponent } from './views/login/login/login.component';
+import { UserManagementComponent } from './views/user-management/user-management/user-management.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent, canActivate: [LoginGuard]},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'edit_mode', component:EditModeComponent, canActivate: [InnerGuard]},
   {path: 'edit/:id_api', component:EditApiComponent, canActivate: [InnerGuard]},
   {path: 'add_api', component: AddApiComponent, canActivate: [InnerGuard]},
+  {path: 'gestion-de-usuarios', component: UserManagementComponent, canActivate: [InnerGuard]},
   {path: '**', pathMatch: 'full', component: Page404Component, canActivate: [InnerGuard] }
 ];
 
