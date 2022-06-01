@@ -12,12 +12,15 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { AngularMaterialModule } from '../angular-materials/angular-materials.module';
 import { MatTable, MatTableModule } from '@angular/material/table';
+import { UserManagementMainComponent } from './user-management-main/user-management-main.component';
+
 
 
 
 @NgModule({
   declarations: [
-    UserManagementComponent
+    UserManagementComponent,
+    UserManagementMainComponent
   ],
   imports: [
     CommonModule,

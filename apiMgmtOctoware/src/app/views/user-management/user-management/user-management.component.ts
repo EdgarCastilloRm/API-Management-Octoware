@@ -24,7 +24,6 @@ export class UserManagementComponent implements OnInit {
       next:(res)=>{
         this.dataSource = new MatTableDataSource(res);
         this.datos = res;
-        alert(res[0].email);
       },
       error :  (err) => {
         alert("Error while fetching data.");
