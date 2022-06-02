@@ -1,0 +1,13 @@
+.container{
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+mat-form-field{
+    width: 100%;
+}
+button{
+    width: 100%;
+    background-color: #002171;
+    color: white;
+}
