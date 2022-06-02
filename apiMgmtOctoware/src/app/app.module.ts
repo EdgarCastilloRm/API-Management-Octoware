@@ -10,7 +10,6 @@ import { CatalogueModule } from './views/catalogue/catalogue.module';
 import { DashboardModule } from './views/dashboard/dashboard.module';
 import { LoginModule } from './views/login/login.module';
 import { DetailedApiModule } from './views/detailed-api/detailed-api.module';
-import { AddAPiModule } from './views/add-api/add-api.module';
 import { EditModeModule } from './views/edit-mode/edit-mode.module';
 import { EditApiModule } from './views/edit-api/edit-api.module';
 
@@ -30,7 +29,6 @@ import { EditApiModule } from './views/edit-api/edit-api.module';
     SharedModule,
     DetailedApiModule,
     EditApiModule,
-    AddAPiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

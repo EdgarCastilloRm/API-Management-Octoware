@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DetailedAPI, Categories, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
+import { EditCategoryComponent } from 'src/app/shared/shared/edit-category/edit-category.component';
 
 @Component({
   selector: 'app-main',
@@ -24,10 +26,11 @@ export class MainComponent implements OnInit {
   params!: Param[];
   responses!: Resp[]
   flag_is_api!: string;
+  apiIdFromRoute! : Number;
 
   selectedEndpoint!: SpecificEndpoint;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  constructor(private dataService: DataService, private route: ActivatedRoute, private dialog: MatDialog) {
     this.endpointURL = '';
     this.selectedRequestMethod = 'GET';
     this.requestMethods = ['GET', 'POST', 'DELETE', 'PUT'];
@@ -37,9 +40,9 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const apiIdFromRoute = Number(routeParams.get('id_api'));
-    this.getApiInfo(apiIdFromRoute);
-    this.getCategoriesInfo(apiIdFromRoute);
+    this.apiIdFromRoute= Number(routeParams.get('id_api'));
+    this.getApiInfo(this.apiIdFromRoute);
+    this.getCategoriesInfo(this.apiIdFromRoute);
     this.getEndpoints();
   }
 
@@ -163,5 +166,19 @@ export class MainComponent implements OnInit {
 
     this.selectedRequestMethod = 'GET';
     this.endpointError = '';
+  }
+
+  openCategoryDialog(){
+    this.dialog.open(EditCategoryComponent, {
+      restoreFocus: false,
+      data: {
+        route: this.route
+      },
+      width:'40%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getCategoriesInfo(this.apiIdFromRoute);
+      }
+    })
   }
 }

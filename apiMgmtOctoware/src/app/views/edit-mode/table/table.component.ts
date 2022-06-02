@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { TableData } from 'src/app/models/catalogTableData';
 import { DataService } from 'src/app/services/data.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AddApiComponent } from '../../add-api/add-api/add-api.component';
 import * as _ from 'lodash';
+import { NewAPIComponent } from 'src/app/shared/shared/new-api/new-api.component';
 
 @Component({
   selector: 'app-table',
@@ -79,7 +79,7 @@ export class TableComponent implements OnInit {
   }
   
   openDialog() {
-    this.dialog.open(AddApiComponent, {
+    this.dialog.open(NewAPIComponent, {
       width:'40%'
     }).afterClosed().subscribe(val=>{
       if(val === 'save'){

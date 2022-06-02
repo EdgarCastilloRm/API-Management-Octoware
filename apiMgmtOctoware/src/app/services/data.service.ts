@@ -67,8 +67,12 @@ export class DataService {
     return this.http.post(url, {});
   }
 
-  public postAPI(body:any){
+  postAPI(body:any){
     return this.http.post("http://localhost:4000/apis", body);
+  }
+
+  postCategory(body:any, id_api:Number){
+    return this.http.post("http://localhost:4000/categories/" + id_api, body);
   }
 
   getCategoriesByID(id_api:Number){

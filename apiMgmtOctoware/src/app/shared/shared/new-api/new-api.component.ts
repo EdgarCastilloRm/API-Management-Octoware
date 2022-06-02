@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-api',
-  templateUrl: './add-api.component.html',
-  styleUrls: ['./add-api.component.css']
+  selector: 'app-new-api',
+  templateUrl: './new-api.component.html',
+  styleUrls: ['./new-api.component.css']
 })
-export class AddApiComponent implements OnInit {
+export class NewAPIComponent implements OnInit {
   apiForm !: FormGroup;
   Toast = Swal.mixin({
     toast: true,
@@ -23,7 +22,7 @@ export class AddApiComponent implements OnInit {
     }
   })
 
-  constructor(private formBuilder: FormBuilder, private api: DataService, private dialogRef: MatDialogRef<AddApiComponent>) { }
+  constructor(private formBuilder: FormBuilder, private api: DataService, private dialogRef: MatDialogRef<NewAPIComponent>) { }
 
   ngOnInit(): void {
     this.apiForm =  this.formBuilder.group({

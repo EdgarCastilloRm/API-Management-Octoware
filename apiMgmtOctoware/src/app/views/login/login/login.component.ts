@@ -12,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class LoginComponent implements OnDestroy {
   user: SocialUser = new SocialUser();
-  basicInfo: UserInfo;
+  basicInfo!: UserInfo;
   loggedIn: boolean = false; 
   authSub: Subscription = new Subscription;
 
@@ -21,11 +21,6 @@ export class LoginComponent implements OnDestroy {
     private dataService: DataService,
     private router: Router
   ) {
-    this.basicInfo = {
-      nombre_usr: "",
-      email: "",
-      tipo_usr: ""
-    }
   }
 
   ngOnDestroy(): void {
@@ -94,6 +89,7 @@ export class LoginComponent implements OnDestroy {
     this.dataService.getUserData(this.user.email).subscribe((response: UserInfo[])=>{
       if(response){
         this.basicInfo ={
+          id_usr: response[0].id_usr,
           nombre_usr: response[0].nombre_usr,
           email: response[0].email,
           tipo_usr: response[0].tipo_usr

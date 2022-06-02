@@ -158,20 +158,14 @@ mat-sidenav-container {
   }
 
   .endpointTitle{
-    margin:0;
-    width: auto;
-    display:flex;
-    align-items: center;
-  }
-  
-  button{
-    width: auto
+    display:inline-block;
+    margin-bottom: 0;
+    margin-left: 0;
   }
 
   .lilBtn{
     font-size: 20px;
-    margin-left: 5px;
-    text-align: center;
+    cursor:pointer;
   }
   
   h3 {

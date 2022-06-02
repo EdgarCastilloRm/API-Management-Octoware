@@ -5,19 +5,41 @@ import { Page404Component } from './page404/page404.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { AngularMaterialModule } from 'src/app/views/angular-materials/angular-materials.module';
+import { NewAPIComponent } from './new-api/new-api.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    Page404Component
+    Page404Component,
+    NewAPIComponent,
+    EditCategoryComponent
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     RouterModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CommonModule,
+    AngularMaterialModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule,
+    MatInputModule,
+    MatSortModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   exports: [
     NavbarComponent

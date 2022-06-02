@@ -8,33 +8,23 @@
       <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
     </button>
     <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
-    <div
-      style="
-        display: flex;
-        justify-content: left;
-        position: relative;
-        margin: 16px;
-        margin-left: 0;
-      "
-    >
+    <div style="background-color:gold; padding: 16px; padding-left: 0;">
       <h2 class="endpointTitle">Endpoints</h2>
-      <button mat-icon-button matTooltip="Add Endpoint Category" matTooltipPosition="after">
-        <mat-icon style="color: #c75b39;" class="lilBtn">add_box</mat-icon>
-      </button>
+      <mat-icon style="color: #c75b39;" class="lilBtn" matTooltip="Add Endpoint Category" matTooltipPosition="after" (click)="openCategoryDialog()">add_box</mat-icon>
     </div>
+
+  
     <mat-expansion-panel *ngFor="let cat of categories">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ cat.nombre_cat }}
-          <button mat-icon-button matTooltip="Change Category Name" matTooltipPosition="after" color="primary">
-            <mat-icon class="lilBtn">edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Delete Endpoint Category" matTooltipPosition="after">
-            <mat-icon style="color: #C71717;" class="lilBtn">delete</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Add Category Method" matTooltipPosition="after">
-            <mat-icon style="color: #c75b39;" class="lilBtn">add_box</mat-icon>
-          </button>
+            <mat-icon  matTooltip="Change Category Name" matTooltipPosition="after" color="primary" class="lilBtn">edit</mat-icon>
+            <button mat-icon-button matTooltip="Delete Endpoint Category" matTooltipPosition="after">
+              <mat-icon style="color: #C71717;" class="lilBtn">delete</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Add Category Method" matTooltipPosition="after">
+              <mat-icon style="color: #c75b39;" class="lilBtn">add_box</mat-icon>
+            </button>
         </mat-panel-title>
       </mat-expansion-panel-header>
 

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Add a New Category</h1>
+<div mat-dialog-content>
+    <form [formGroup]="catForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Category Name</mat-label>
+            <input formControlName="nombre_cat" matInput placeholder="Example: Insects">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-raised-button style="margin-left: 10px;" color="primary" (click)="addCategory()">Save</button>
+</div>
