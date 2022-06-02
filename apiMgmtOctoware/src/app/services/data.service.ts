@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { delay, Observable } from 'rxjs';
-import { UserInfo } from '../models/basicInfoUser';
+import { AllUserInfo, UserInfo, UserInfoResponse } from '../models/basicInfoUser';
 import { StorageService } from './storage.service';
 import { TableDataResponse } from '../models/catalogTableData';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from '../models/detailedApiData';
@@ -37,6 +37,10 @@ export class DataService {
     return this.http.get<UserInfo[]>('http://localhost:4000/users/email/', {
       params: params,
     });
+  }
+
+  getAllUsers(): Observable<AllUserInfo[]> {
+    return this.http.get<AllUserInfo[]>("http://localhost:4000/users");
   }
 
   setJsonValue(key: string, value: UserInfo) {
