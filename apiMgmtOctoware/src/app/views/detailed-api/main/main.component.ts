@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
@@ -25,7 +25,12 @@ export class MainComponent implements OnInit {
   responses!: Resp[]
   flag_is_api!: string;
 
+  userData = this.dataService.getJsonValue('currentUser');
+
   selectedEndpoint!: SpecificEndpoint;
+
+  @Input() selected: boolean = false;
+  @Output() selectedChange = new EventEmitter<boolean>();
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
     this.endpointURL = '';
@@ -34,6 +39,8 @@ export class MainComponent implements OnInit {
     this.endpointError = '';
     this.loadingState = false;
   }
+
+
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -52,6 +59,10 @@ export class MainComponent implements OnInit {
           this.flag_is_api = 'true';
         }
       });
+  }
+
+  toggleSelected(){
+    this.selected = !this.selected;
   }
 
   getCategoriesInfo(apiIdFromRoute: Number){
