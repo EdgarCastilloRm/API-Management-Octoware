@@ -78,6 +78,10 @@ export class DataService {
   postCategory(body:any, id_api:Number){
     return this.http.post("http://localhost:4000/categories/" + id_api, body);
   }
+  
+  changeUserRole(id_usr: number, body:any){
+    return this.http.put("http://localhost:4000/users/" + id_usr, body);
+  }
 
   getCategoriesByID(id_api:Number){
     return this.http.get<Categories[]>("http://localhost:4000/categories/" + id_api);

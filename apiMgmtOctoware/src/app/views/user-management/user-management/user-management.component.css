@@ -1,6 +1,38 @@
+.container{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
 .mat-elevation-z8{
-    width: 50%;
+    width: 45rem
 }
 .table_container {
     width: 100%;
 }
+
+th{
+    background-color: #C6C6C6;
+    font-size: medium;
+}
+
+.color-user{
+    color: #002171;
+    font-size:1rem;
+    
+}
+
+.color-admin{
+    color: #c75b39;
+    font-size:1rem;
+}
+
+.color-super{
+    color: #C6C6C6;
+    font-style: 1rem;
+}
+h4 {
+    margin: 0;
+}
+

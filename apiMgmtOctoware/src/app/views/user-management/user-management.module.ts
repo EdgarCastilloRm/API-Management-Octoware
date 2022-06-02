@@ -13,6 +13,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { AngularMaterialModule } from '../angular-materials/angular-materials.module';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { UserManagementMainComponent } from './user-management-main/user-management-main.component';
+import { EditPopupComponent } from './edit-popup/edit-popup.component';
 
 
 
@@ -20,7 +21,8 @@ import { UserManagementMainComponent } from './user-management-main/user-managem
 @NgModule({
   declarations: [
     UserManagementComponent,
-    UserManagementMainComponent
+    UserManagementMainComponent,
+    EditPopupComponent
   ],
   imports: [
     CommonModule,
