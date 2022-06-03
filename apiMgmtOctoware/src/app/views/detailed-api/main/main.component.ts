@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { empty } from 'rxjs';
 import { FavEndId } from 'src/app/models/basicInfoUser';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
@@ -62,8 +63,21 @@ export class MainComponent implements OnInit {
       });
   }
 
-  toggleSelected(){
-    this.selected = !this.selected;
+  toggleSelected(id_end: Number){
+    var body = {
+      id_usr: this.userData.id_usr,
+      id_end: id_end
+    };
+    //if(Object.keys(this.favButton!).length == 0){ //sabemos que nunca le ha dado a añadir favorito
+    if (this.favButton == null){
+    //mandar el post
+      this.postFavs(body);
+      
+    }else{
+      //mandar el put
+      this.putFavs(body);
+    }
+    
   }
 
   getCategoriesInfo(apiIdFromRoute: Number){
@@ -95,16 +109,38 @@ export class MainComponent implements OnInit {
       }
     }
     });
-    
   }
 
   getFavs(body: any){
     this.dataService.getFavById(body).subscribe({
       next: (res) =>{
-        this.favButton = res;
-        if(this.favButton.disponibilidad == true){
-          this.selected = !this.selected;
+        if (res != null){
+          if(res.disponibilidad == true){
+            this.selected = true;
+          }else{
+            this.selected = false;
+          }
         }
+
+        this.favButton = res;
+
+        console.log("res:", res);
+      }
+    })
+  }
+
+  postFavs(body: any){
+    this.dataService.postFav(body).subscribe({
+      next: (res) => {
+        this.getFavs(body);
+      }
+    })
+  }
+
+  putFavs(body: any){
+    this.dataService.putFav(body).subscribe({
+      next: (res) =>{
+        this.getFavs(body);
       }
     })
   }

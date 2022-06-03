@@ -110,7 +110,17 @@ export class DataService {
   }
 
   postFav(body: any){
-    return this.http.post("https://localhost:4000/favDisp", body);
+    /*let params = new HttpParams();
+    params = params.append('id_end', body.id_end);
+    params = params.append('id_usr', body.id_usr);*/
+    return this.http.post("http://localhost:4000/favDisp/", body);
+  }
+
+  putFav(body: any){
+    /*let params = new HttpParams();
+    params = params.append('id_end', body.id_end);
+    params = params.append('id_usr', body.id_usr);*/
+    return this.http.put("http://localhost:4000/favDisp/", body);
   }
 
 }
