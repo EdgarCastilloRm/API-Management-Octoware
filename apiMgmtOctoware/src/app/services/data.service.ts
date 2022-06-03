@@ -4,6 +4,7 @@ import { delay, Observable } from 'rxjs';
 import { UserInfo } from '../models/basicInfoUser';
 import { StorageService } from './storage.service';
 import { TableDataResponse } from '../models/catalogTableData';
+import { FavApiUsrResponse } from '../models/basicInfoUser';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from '../models/detailedApiData';
 
 @Injectable({
@@ -89,6 +90,11 @@ export class DataService {
 
   getEndpointResponse(id_end:Number){
     return this.http.get<Resp[]>("http://localhost:4000/response/" + id_end);
+  }
+
+  getFavs(body:any): Observable<any> {
+    console.log(body);
+    return this.http.get<FavApiUsrResponse>("http://localhost:4000/tablefavs", body);
   }
 
 }
