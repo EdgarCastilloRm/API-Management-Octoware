@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FavEndId } from 'src/app/models/basicInfoUser';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
 
@@ -9,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
+  favButton!: FavEndId;
   endpointURL: string;
   selectedRequestMethod: string;
   readonly requestMethods: Array<string>;
@@ -78,14 +79,34 @@ export class MainComponent implements OnInit {
   }
 
   getEndpoint(id_end: Number) {
+    this.selected = false;
     this.getParams(id_end);
     this.getResponses(id_end);
-    this.dataService.getSpecificEndpointByID(id_end).subscribe((response) => {
+    var body = {
+      id_usr: this.userData.id_usr,
+      id_end: id_end
+    };
+    this.getFavs(body);
+    this.dataService.getSpecificEndpointByID(id_end).subscribe({
+      next: (response) => {
       this.selectedEndpoint = response;
       if (this.params != null && this.responses != null && this.selectedEndpoint != null){
         this.flag_is_api = 'false';
       }
+    }
     });
+    
+  }
+
+  getFavs(body: any){
+    this.dataService.getFavById(body).subscribe({
+      next: (res) =>{
+        this.favButton = res;
+        if(this.favButton.disponibilidad == true){
+          this.selected = !this.selected;
+        }
+      }
+    })
   }
 
   getParams(id_end: Number){

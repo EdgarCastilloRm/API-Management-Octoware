@@ -28,3 +28,15 @@ export interface FavApiUsr {
     nombre_end: string;
     tipo_end: string;
 }
+
+export interface FavEndIdResponse{
+    count: Number;
+    entries: FavEndId[];
+}
+
+export interface FavEndId {
+    id_fav: Number;
+    id_end: Number;
+    id_usr: Number;
+    disponibilidad: Boolean;
+}
