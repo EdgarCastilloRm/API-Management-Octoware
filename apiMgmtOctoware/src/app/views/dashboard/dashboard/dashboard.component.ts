@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import * as _ from 'lodash'
 import { FavApiUsr } from 'src/app/models/basicInfoUser';
