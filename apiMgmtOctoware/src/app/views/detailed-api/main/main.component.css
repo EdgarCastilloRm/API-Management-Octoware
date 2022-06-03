@@ -207,3 +207,8 @@ h3 {
 .finish{
   float: right;
 }
+
+/* Favorite icon */
+.red_bookmark {
+  color: red;
+}

@@ -1,0 +1,25 @@
+table {
+    width: 50%;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  background-color: #E1DDDD;
+  opacity: 50%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.container{
+  max-width: 90%;
+  margin: 2rem auto;
+}

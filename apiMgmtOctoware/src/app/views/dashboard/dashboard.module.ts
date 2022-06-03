@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -11,7 +13,9 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class DashboardModule { }

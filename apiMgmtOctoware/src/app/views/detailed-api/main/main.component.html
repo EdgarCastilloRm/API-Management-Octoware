@@ -96,6 +96,15 @@
           <div class="titles">
             <mat-card-title>
               <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
+              <button mat-icon-button (click)="toggleSelected()">
+                <mat-icon *ngIf="selected" aria-label="Fav button" class="red_bookmark">
+                  turned_in
+                </mat-icon>
+              
+                <mat-icon *ngIf="!selected" aria-label="Fav button">
+                  turned_in_not
+                </mat-icon>
+              </button>
             </mat-card-title>
             <mat-card-subtitle> Method </mat-card-subtitle>
             <hr />
