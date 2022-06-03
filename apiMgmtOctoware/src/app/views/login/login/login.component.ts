@@ -16,6 +16,10 @@ export class LoginComponent implements OnDestroy {
   loggedIn: boolean = false; 
   authSub: Subscription = new Subscription;
 
+  body = {
+    id_tipo_usr: null
+  }
+
   constructor(
     private authService: SocialAuthService,
     private dataService: DataService,

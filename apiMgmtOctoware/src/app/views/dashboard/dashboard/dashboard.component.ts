@@ -29,8 +29,7 @@ export class DashboardComponent implements OnInit {
   }
   
   getAllFavs() {
-    var body = { id_usr : this.userData.id_usr };
-    this.dataService.getFavs(body).subscribe({
+    this.dataService.getFavs(this.userData.id_usr ).subscribe({
       next:(res)=>{
         this.dataSource = new MatTableDataSource(res.entries);
         this.dataSource.paginator = this.paginator;

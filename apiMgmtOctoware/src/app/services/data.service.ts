@@ -104,9 +104,12 @@ export class DataService {
     return this.http.get<Resp[]>("http://localhost:4000/response/" + id_end);
   }
 
-  getFavs(body:any): Observable<any> {
-    console.log(body);
-    return this.http.get<FavApiUsrResponse>("http://localhost:4000/tablefavs", body);
+  getFavs(data: any): Observable<FavApiUsrResponse> {
+    let params = new HttpParams();
+    params = params.append('id_usr', data);
+    return this.http.get<FavApiUsrResponse>("http://localhost:4000/tablefavs/", {
+      params: params,
+    });
   }
 
 }

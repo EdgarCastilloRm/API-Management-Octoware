@@ -12,8 +12,8 @@
     <div fxLayout="row" fxShow="false" fxShow.gt-md>
       <button mat-button routerLinkActive="active" routerLink="/dashboard">Dashboard</button>
       <button mat-button routerLinkActive="active" routerLink="/catalogue">Catalogue</button>
-      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'Superuser'" routerLinkActive="active" routerLink="/edit_mode">Edit Mode</button>
-      <button mat-button *ngIf="userData.tipo_usr == 'Superuser'" routerLinkActive="active" routerLink="/gestion-de-usuarios">User Management</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'Admin' || userData.tipo_usr == 'SuperUser'" routerLinkActive="active" routerLink="/edit_mode">Edit Mode</button>
+      <button mat-button *ngIf="userData.tipo_usr == 'SuperUser'" routerLinkActive="active" routerLink="/gestion-de-usuarios">User Management</button>
     </div>
   
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-md>
