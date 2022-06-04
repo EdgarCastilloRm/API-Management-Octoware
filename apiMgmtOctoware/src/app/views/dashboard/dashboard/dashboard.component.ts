@@ -13,7 +13,7 @@ import { FavApiUsr } from 'src/app/models/basicInfoUser';
 })
 export class DashboardComponent implements OnInit {
   
-  displayedColumns: string[] = ['nombre_api', 'nombre_cat', 'nombre_end', 'tipo_end'];
+  displayedColumns: string[] = ['nombre_api', 'disp_api', 'ult_conexion_api', 'version_api'];
   dataSource!: MatTableDataSource<FavApiUsr>;
 
   constructor( private dataService: DataService) { }

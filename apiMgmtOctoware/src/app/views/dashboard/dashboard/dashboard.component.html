@@ -9,17 +9,19 @@
         <th mat-header-cell mat-sort-header *matHeaderCellDef> API Name </th>
         <td mat-cell *matCellDef="let fav"> {{fav.nombre_api}} </td>
       </ng-container>
-      <ng-container matColumnDef="nombre_cat">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef> API Category </th>
-        <td mat-cell *matCellDef="let fav"> {{fav.nombre_cat}} </td>
+      <ng-container matColumnDef="disp_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Availability </th>
+        <td mat-cell *matCellDef="let fav"> {{fav.disp_api}} </td>
       </ng-container>
-      <ng-container matColumnDef="nombre_end">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef> Endpoint Name </th>
-        <td mat-cell *matCellDef="let fav"> {{fav.nombre_end}} </td>
+      <ng-container matColumnDef="ult_conexion_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Last Connection </th>
+        <td mat-cell *matCellDef="let fav">
+          {{ fav.ult_conexion_api | date: "medium" }}
+        </td>
       </ng-container>
-      <ng-container matColumnDef="tipo_end">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef> Method Type </th>
-        <td mat-cell *matCellDef="let fav"> {{fav.tipo_end}} </td>
+      <ng-container matColumnDef="version_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Version </th>
+        <td mat-cell *matCellDef="let fav"> {{fav.version_api}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

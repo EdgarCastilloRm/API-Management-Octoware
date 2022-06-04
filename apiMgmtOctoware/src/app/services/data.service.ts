@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { delay, Observable } from 'rxjs';
-import { AllUserInfo, FavEndId, UserInfo, UserInfoResponse } from '../models/basicInfoUser';
+import { AllUserInfo, FavApiId, UserInfo, UserInfoResponse } from '../models/basicInfoUser';
 import { StorageService } from './storage.service';
 import { TableDataResponse } from '../models/catalogTableData';
 import { FavApiUsrResponse } from '../models/basicInfoUser';
@@ -92,11 +92,11 @@ export class DataService {
     return this.http.get<Resp[]>("http://localhost:4000/response/" + id_end);
   }
 
-  getFavById(data: any): Observable<FavEndId> {
+  getFavById(data: any): Observable<FavApiId> {
     let params = new HttpParams();
-    params = params.append('id_end', data.id_end);
+    params = params.append('id_api', data.id_api);
     params = params.append('id_usr', data.id_usr);
-    return this.http.get<FavEndId>("http://localhost:4000/favDisp/", {
+    return this.http.get<FavApiId>("http://localhost:4000/favDisp/", {
       params: params,
     });
   }
@@ -104,7 +104,7 @@ export class DataService {
   getFavs(body:any): Observable<any> {
     let params = new HttpParams();
     params = params.append('id_usr', body.id_usr);
-    return this.http.get<FavApiUsrResponse>("http://localhost:4000/tablefavs", {
+    return this.http.get<FavApiUsrResponse>("http://localhost:4000/tablefavs/", {
       params: params,
     });
   }

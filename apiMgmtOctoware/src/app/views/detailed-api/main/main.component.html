@@ -7,6 +7,15 @@
     >
       <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
     </button>
+    <button mat-icon-button (click)="toggleSelected()">
+      <mat-icon *ngIf="selected" aria-label="Fav button" class="red_bookmark">
+        star
+      </mat-icon>
+    
+      <mat-icon *ngIf="!selected" aria-label="Fav button" style="font-size: 2rem">
+        star_border
+      </mat-icon>
+    </button>
     <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
     <div
       style="
@@ -96,15 +105,6 @@
           <div class="titles">
             <mat-card-title>
               <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
-              <button mat-icon-button (click)="toggleSelected(selectedEndpoint.id_end)">
-                <mat-icon *ngIf="selected" aria-label="Fav button" class="red_bookmark">
-                  star
-                </mat-icon>
-              
-                <mat-icon *ngIf="!selected" aria-label="Fav button" style="font-size: 2rem">
-                  star_border
-                </mat-icon>
-              </button>
             </mat-card-title>
             <mat-card-subtitle> Method </mat-card-subtitle>
             <hr />

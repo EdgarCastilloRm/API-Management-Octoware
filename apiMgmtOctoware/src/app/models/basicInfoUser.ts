@@ -1,7 +1,8 @@
 export interface UserInfo {
-    id_usr:     Number;
+    id_usr:     number;
     nombre_usr:     string;
     email:      string;
+    estatus: boolean;
     tipo_usr:   string;
 }
 
@@ -14,6 +15,7 @@ export interface AllUserInfo {
     id_usr: number;
     nombre_usr: string;
     email:      string;
+    estatus: boolean
     id_tipo_usr:   number;
 }
 
@@ -24,17 +26,17 @@ export interface FavApiUsrResponse{
 
 export interface FavApiUsr {
     nombre_api: string;
-    nombre_cat: string;
-    nombre_end: string;
-    tipo_end: string;
+    disp_api: string;
+    ult_conexion_api: string;
+    version_api: string;
 }
 
-export interface FavEndIdResponse{
+export interface FavApiIdResponse{
     count: Number;
-    entries: FavEndId[];
+    entries: FavApiId[];
 }
 
-export interface FavEndId {
+export interface FavApiId {
     id_fav: Number;
     id_end: Number;
     id_usr: Number;

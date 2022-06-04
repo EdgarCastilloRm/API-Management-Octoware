@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { empty } from 'rxjs';
-import { FavEndId } from 'src/app/models/basicInfoUser';
+import { FavApiId } from 'src/app/models/basicInfoUser';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
 
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  favButton!: FavEndId;
+  favButton!: FavApiId;
   endpointURL: string;
   selectedRequestMethod: string;
   readonly requestMethods: Array<string>;
@@ -50,6 +50,7 @@ export class MainComponent implements OnInit {
     this.getApiInfo(apiIdFromRoute);
     this.getCategoriesInfo(apiIdFromRoute);
     this.getEndpoints();
+    this.getFavs(apiIdFromRoute);
   }
 
   getApiInfo(apiIdFromRoute: Number) {
@@ -63,12 +64,13 @@ export class MainComponent implements OnInit {
       });
   }
 
-  toggleSelected(id_end: Number){
+  toggleSelected(){
+    const routeParams = this.route.snapshot.paramMap;
+    const id_api = Number(routeParams.get('id_api'));
     var body = {
       id_usr: this.userData.id_usr,
-      id_end: id_end
+      id_api: id_api
     };
-    //if(Object.keys(this.favButton!).length == 0){ //sabemos que nunca le ha dado a añadir favorito
     if (this.favButton == null){
     //mandar el post
       this.postFavs(body);
@@ -96,11 +98,6 @@ export class MainComponent implements OnInit {
     this.selected = false;
     this.getParams(id_end);
     this.getResponses(id_end);
-    var body = {
-      id_usr: this.userData.id_usr,
-      id_end: id_end
-    };
-    this.getFavs(body);
     this.dataService.getSpecificEndpointByID(id_end).subscribe({
       next: (response) => {
       this.selectedEndpoint = response;
@@ -111,7 +108,11 @@ export class MainComponent implements OnInit {
     });
   }
 
-  getFavs(body: any){
+  getFavs(id_api: Number){
+    var body = {
+      id_usr: this.userData.id_usr,
+      id_api: id_api
+    };
     this.dataService.getFavById(body).subscribe({
       next: (res) =>{
         if (res != null){
