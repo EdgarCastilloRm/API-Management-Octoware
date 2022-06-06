@@ -2,25 +2,31 @@
 <h1>Welcome {{userData.nombre_usr}}</h1>
 <p>{{userData.email}}</p>
 <p>{{userData.id_usr}}</p>
-
-<table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="nombre_api">
-        <th mat-header-cell *matHeaderCellDef> API Name </th>
+<div class="container">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="nombre_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> API Name </th>
         <td mat-cell *matCellDef="let fav"> {{fav.nombre_api}} </td>
       </ng-container>
-      <ng-container matColumnDef="nombre_cat">
-        <th mat-header-cell *matHeaderCellDef> Categoría API </th>
-        <td mat-cell *matCellDef="let fav"> {{fav.nombre_cat}} </td>
+      <ng-container matColumnDef="disp_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Availability </th>
+        <td mat-cell *matCellDef="let fav"> {{fav.disp_api}} </td>
       </ng-container>
-      <ng-container matColumnDef="nombre_end">
-        <th mat-header-cell *matHeaderCellDef> Nombre Endpoint </th>
-        <td mat-cell *matCellDef="let fav"> {{fav.nombre_end}} </td>
+      <ng-container matColumnDef="ult_conexion_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Last Connection </th>
+        <td mat-cell *matCellDef="let fav">
+          {{ fav.ult_conexion_api | date: "medium" }}
+        </td>
       </ng-container>
-      <ng-container matColumnDef="tipo_end">
-        <th mat-header-cell *matHeaderCellDef> Tipo Endpoint</th>
-        <td mat-cell *matCellDef="let fav"> {{fav.tipo_end}} </td>
+      <ng-container matColumnDef="version_api">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Version </th>
+        <td mat-cell *matCellDef="let fav"> {{fav.version_api}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let emprow; columns: displayedColumns;"></tr>
-</table>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

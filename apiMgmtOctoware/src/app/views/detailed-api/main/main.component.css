@@ -210,5 +210,6 @@ h3 {
 
 /* Favorite icon */
 .red_bookmark {
-  color: red;
+  color: purple;
+  font-size: 2rem;
 }

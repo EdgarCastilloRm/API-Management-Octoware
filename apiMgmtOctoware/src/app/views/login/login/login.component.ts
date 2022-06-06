@@ -96,6 +96,7 @@ export class LoginComponent implements OnDestroy {
           id_usr: response[0].id_usr,
           nombre_usr: response[0].nombre_usr,
           email: response[0].email,
+          estatus: response[0].estatus,
           tipo_usr: response[0].tipo_usr
         }
         this.dataService.setJsonValue('currentUser', this.basicInfo);

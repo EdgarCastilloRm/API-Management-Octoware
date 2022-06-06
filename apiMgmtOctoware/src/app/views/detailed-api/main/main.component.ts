@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { empty } from 'rxjs';
+import { FavApiId } from 'src/app/models/basicInfoUser';
 import { Categories, DetailedAPI, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
 
@@ -9,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
+  favButton!: FavApiId;
   endpointURL: string;
   selectedRequestMethod: string;
   readonly requestMethods: Array<string>;
@@ -48,6 +50,7 @@ export class MainComponent implements OnInit {
     this.getApiInfo(apiIdFromRoute);
     this.getCategoriesInfo(apiIdFromRoute);
     this.getEndpoints();
+    this.getFavs(apiIdFromRoute);
   }
 
   getApiInfo(apiIdFromRoute: Number) {
@@ -62,7 +65,21 @@ export class MainComponent implements OnInit {
   }
 
   toggleSelected(){
-    this.selected = !this.selected;
+    const routeParams = this.route.snapshot.paramMap;
+    const id_api = Number(routeParams.get('id_api'));
+    var body = {
+      id_usr: this.userData.id_usr,
+      id_api: id_api
+    };
+    if (this.favButton == null){
+    //mandar el post
+      this.postFavs(body);
+      
+    }else{
+      //mandar el put
+      this.putFavs(body);
+    }
+    
   }
 
   getCategoriesInfo(apiIdFromRoute: Number){
@@ -78,14 +95,55 @@ export class MainComponent implements OnInit {
   }
 
   getEndpoint(id_end: Number) {
+    this.selected = false;
     this.getParams(id_end);
     this.getResponses(id_end);
-    this.dataService.getSpecificEndpointByID(id_end).subscribe((response) => {
+    this.dataService.getSpecificEndpointByID(id_end).subscribe({
+      next: (response) => {
       this.selectedEndpoint = response;
       if (this.params != null && this.responses != null && this.selectedEndpoint != null){
         this.flag_is_api = 'false';
       }
+    }
     });
+  }
+
+  getFavs(id_api: Number){
+    var body = {
+      id_usr: this.userData.id_usr,
+      id_api: id_api
+    };
+    this.dataService.getFavById(body).subscribe({
+      next: (res) =>{
+        if (res != null){
+          if(res.disponibilidad == true){
+            this.selected = true;
+          }else{
+            this.selected = false;
+          }
+        }
+
+        this.favButton = res;
+
+        console.log("res:", res);
+      }
+    })
+  }
+
+  postFavs(body: any){
+    this.dataService.postFav(body).subscribe({
+      next: (res) => {
+        this.getFavs(body);
+      }
+    })
+  }
+
+  putFavs(body: any){
+    this.dataService.putFav(body).subscribe({
+      next: (res) =>{
+        this.getFavs(body);
+      }
+    })
   }
 
   getParams(id_end: Number){
