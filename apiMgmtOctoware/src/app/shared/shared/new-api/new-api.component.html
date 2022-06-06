@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add a New API</h1>
+<h1 mat-dialog-title>{{titleForm}}</h1>
 <div mat-dialog-content>
     <form [formGroup]="apiForm">
         <mat-form-field appearance="outline">
@@ -17,9 +17,13 @@
             <mat-label>Description</mat-label>
             <textarea formControlName="descripcion_api" matInput></textarea>
         </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>API Key</mat-label>
+          <input formControlName="api_key" matInput placeholder="NA">
+      </mat-form-field>
     </form>
 </div>
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-    <button mat-raised-button style="margin-left: 10px;" color="primary" (click)="addAPI()">Save</button>
+    <button mat-raised-button style="margin-left: 10px;" color="primary" (click)="addAPI()">{{actionBtn}}</button>
 </div>

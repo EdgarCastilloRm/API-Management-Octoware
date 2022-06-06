@@ -11,7 +11,7 @@
     </mat-form-field>
 
     <div class="add">
-      <button mat-button (click)="openDialog()">
+      <button mat-button (click)="openCreateDialog()">
         Add API
       </button>
     </div>
@@ -62,7 +62,7 @@
           <button mat-icon-button (click)="openDetailedEdit(element)" color="primary">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn">
+          <button mat-icon-button color="warn" (click)="openDeleteDialog(element.id_api)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

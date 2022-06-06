@@ -112,4 +112,34 @@ export class DataService {
     });
   }
 
+  //POST
+  addMethod(body:any, id_cat: Number){
+    return this.http.post("http://localhost:4000/endpoints/" + id_cat, body);
+  }
+
+  //DELETE
+  deleteAPI(id_api: Number){
+    return this.http.delete("http://localhost:4000/apis/" + id_api);
+  }
+
+  deleteCategory(id_cat: Number){
+    return this.http.delete("http://localhost:4000/categories/" + id_cat);
+  }
+
+  deleteMethod(id_end:Number){
+    return this.http.delete("http://localhost:4000/endpoints/" + id_end);
+  }
+
+  //PUT
+  putAPI(body: any, id_api:Number){
+    return this.http.put("http://localhost:4000/apis/" + id_api, body);
+  }
+
+  putCategoryName(body: any, id_cat:Number){
+    return this.http.put("http://localhost:4000/categories/" + id_cat, body);
+  }
+
+  putMethod(body: any, id_end:Number){
+    return this.http.put("http://localhost:4000/endpoints/" + id_end, body);
+  }
 }

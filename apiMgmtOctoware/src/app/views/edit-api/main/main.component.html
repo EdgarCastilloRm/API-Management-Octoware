@@ -8,9 +8,9 @@
       <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
     </button>
     <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
-    <div style="background-color:gold; padding: 16px; padding-left: 0;">
+    <div style="margin-right: 16px; padding: 16px 0 16px 0; display: flex; align-items: center; justify-content: start;">
       <h2 class="endpointTitle">Endpoints</h2>
-      <mat-icon style="color: #c75b39;" class="lilBtn" matTooltip="Add Endpoint Category" matTooltipPosition="after" (click)="openCategoryDialog()">add_box</mat-icon>
+      <mat-icon style="color: green;" class="lilBtn" matTooltip="Add Endpoint Category" matTooltipPosition="after" (click)="openCategoryDialog()">add_box</mat-icon>
     </div>
 
   
@@ -18,14 +18,12 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ cat.nombre_cat }}
-            <mat-icon  matTooltip="Change Category Name" matTooltipPosition="after" color="primary" class="lilBtn">edit</mat-icon>
-            <button mat-icon-button matTooltip="Delete Endpoint Category" matTooltipPosition="after">
-              <mat-icon style="color: #C71717;" class="lilBtn">delete</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="Add Category Method" matTooltipPosition="after">
-              <mat-icon style="color: #c75b39;" class="lilBtn">add_box</mat-icon>
-            </button>
         </mat-panel-title>
+        <div style="display: flex; float: right; margin-right: 8px;">
+          <mat-icon  matTooltip="Change Category Name" matTooltipPosition="after" color="primary" class="lilBtn" (click)="openEditCategory(cat)">edit</mat-icon>
+          <mat-icon style="color: #C71717;" class="lilBtn" matTooltip="Delete Category" matTooltipPosition="after" (click)="openDeleteCategory(cat.id_cat)">delete</mat-icon>
+          <mat-icon style="color: green;" class="lilBtn" matTooltip="Add Category Method" matTooltipPosition="after"  (click)="openAddMethod(cat.id_cat)">add_box</mat-icon>
+        </div>
       </mat-expansion-panel-header>
 
       <div *ngFor="let end of endpoints">
@@ -62,10 +60,10 @@
         <button mat-raised-button style="background-color: #c75b39; color: white">Finish Edition</button>
       </div>
       <mat-card-title>
-        <h1 class="apiTitle">{{ dataSource.nombre_api }}</h1>
-        <button mat-icon-button matTooltip="Edit Method" matTooltipPosition="after" color="primary">
-          <mat-icon>edit</mat-icon>
-        </button>
+        <div style="margin-right: 16px; display: flex; align-items: center; justify-content: start;">
+          <h1 class="apiTitle">{{ dataSource.nombre_api }}</h1>
+          <mat-icon  matTooltip="Edit API Info" matTooltipPosition="after" color="primary" class="bigBtn" (click)="openEditGeneralAPI(dataSource)">edit</mat-icon>
+        </div>
       </mat-card-title>
       <mat-card-subtitle> API </mat-card-subtitle>
       <hr />
@@ -104,20 +102,18 @@
           <button mat-raised-button style="background-color: #c75b39; color: white">Finish Edition</button>
         </div>
         <mat-card-title>
-          <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
-          <button mat-icon-button matTooltip="Edit" matTooltipPosition="after" color="primary">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Delete Method" matTooltipPosition="after">
-            <mat-icon style="color: #C71717;" class="lilBtn">delete</mat-icon>
-          </button>
+          <div style="margin-right: 16px; display: flex; align-items: center; justify-content: start;">
+            <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
+            <mat-icon  matTooltip="Edit Method Info" matTooltipPosition="after" color="primary" class="bigBtn" (click)="openEditMethod(selectedEndpoint)">edit</mat-icon>
+            <mat-icon style="color: #C71717;" class="bigBtn" matTooltip="Delete Method" matTooltipPosition="after" (click)="openDeleteMethod(selectedEndpoint.id_end)">delete</mat-icon>
+          </div>
         </mat-card-title>
         <mat-card-subtitle> Method </mat-card-subtitle>
         <hr/>
       </div>
       <div class="info">
         <mat-card-content>
-          <p>
+          <p style=" text-align: justify; text-justify: auto;">
             {{ selectedEndpoint.docum_end }}
           </p>
           <h3>URL+extension</h3>

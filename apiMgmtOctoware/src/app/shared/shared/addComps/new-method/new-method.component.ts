@@ -1,19 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-new-api',
-  templateUrl: './new-api.component.html',
-  styleUrls: ['./new-api.component.css']
+  selector: 'app-new-method',
+  templateUrl: './new-method.component.html',
+  styleUrls: ['./new-method.component.css']
 })
-export class NewAPIComponent implements OnInit {
-  apiForm !: FormGroup;
-  actionBtn : string = "Save";
-  titleForm : string = "Add New API"
-  options!: FormGroup;
+export class NewMethodComponent implements OnInit {
+  actionBtn:string = "Save";
+  titleText:string = "Add New Method";
+  methodForm!: FormGroup;
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -25,48 +24,50 @@ export class NewAPIComponent implements OnInit {
     }
   })
 
-  constructor(private formBuilder: FormBuilder, private api: DataService, private dialogRef: MatDialogRef<NewAPIComponent>,  @Inject(MAT_DIALOG_DATA) public editData:any) { }
+  constructor(private fb: FormBuilder, private api: DataService, private dialogRef: MatDialogRef<NewMethodComponent>,  @Inject(MAT_DIALOG_DATA) public editData:any) { }
 
   ngOnInit(): void {
-    this.apiForm =  this.formBuilder.group({
-      nombre_api: [null,Validators.required],
-      version_api: [null, Validators.required],
-      url_base: [null, Validators.required],
-      descripcion_api: [null, Validators.required],
-      api_key: [null]
-    });
+    this.methodForm = this.fb.group({
+      nombre_end: [null,Validators.required],
+      url_end: [null,Validators.required],
+      docum_end: [null,Validators.required],
+      pruebas_end: null,
+      expected_ans: null,
+      id_tipo_end: [null,Validators.required]
+    })
 
-    if(this.editData){
-      this.titleForm = "Update General API Information"
-      this.actionBtn = "Update",
-      this.apiForm.controls['nombre_api'].setValue(this.editData.nombre_api);
-      this.apiForm.controls['version_api'].setValue(this.editData.version_api);
-      this.apiForm.controls['url_base'].setValue(this.editData.url_base);
-      this.apiForm.controls['descripcion_api'].setValue(this.editData.descripcion_api);
-      this.apiForm.controls['api_key'].setValue(this.editData.api_key);
+    if(this.editData.edit){
+      this.titleText = "Update Method"
+      this.actionBtn = "Update"
+      this.methodForm.controls['nombre_end'].setValue(this.editData.cat.nombre_end);
+      this.methodForm.controls['url_end'].setValue(this.editData.cat.url_end);
+      this.methodForm.controls['docum_end'].setValue(this.editData.cat.docum_end);
+      this.methodForm.controls['pruebas_end'].setValue(this.editData.cat.pruebas_end);
+      this.methodForm.controls['expected_ans'].setValue(this.editData.cat.expected_ans);
+      this.methodForm.controls['id_tipo_end'].setValue(this.editData.cat.id_tipo_end);
     }
   }
 
-  addAPI(){
-    if(!this.editData){
-      if(this.apiForm.valid){
-        this.api.postAPI(this.apiForm.value)
+  addMethod(){
+    if(!this.editData.edit){
+      if(this.methodForm.valid){
+        this.api.addMethod(this.methodForm.value, this.editData.id_cat)
         .subscribe({
           next: (res)=>{
             this.Toast.fire({
               icon: 'success',
-              title: 'API was added successfully.',
+              title: 'Method was added successfully.',
               color: '#FFFFFF',
               background: '#329B22',
               iconColor: '#FFFFFF'
             })
-            this.apiForm.reset();
+            this.methodForm.reset();
             this.dialogRef.close('save');
           },
           error: (err)=>{
             this.Toast.fire({
               icon: 'error',
-              title: 'Error while adding API.',
+              title: 'Error while adding Method.',
               color: '#FFFFFF',
               background: '#C71717',
               iconColor: '#FFFFFF'
@@ -83,24 +84,24 @@ export class NewAPIComponent implements OnInit {
         })
       }
     }else{
-      if(this.apiForm.valid){
-        this.api.putAPI(this.apiForm.value, this.editData.id_api)
+      if(this.methodForm.valid){
+        this.api.putMethod(this.methodForm.value, this.editData.edit.id_end)
         .subscribe({
           next: (res)=>{
             this.Toast.fire({
               icon: 'success',
-              title: 'API was updated successfully.',
+              title: 'Method was updated successfully.',
               color: '#FFFFFF',
               background: '#329B22',
               iconColor: '#FFFFFF'
             })
-            this.apiForm.reset();
+            this.methodForm.reset();
             this.dialogRef.close('save');
           },
           error: (err)=>{
             this.Toast.fire({
               icon: 'error',
-              title: 'Error while updating API.',
+              title: 'Error while updating Method.',
               color: '#FFFFFF',
               background: '#C71717',
               iconColor: '#FFFFFF'

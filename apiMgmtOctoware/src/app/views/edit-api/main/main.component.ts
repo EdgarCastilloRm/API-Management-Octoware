@@ -3,7 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DetailedAPI, Categories, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
+import { NewMethodComponent } from 'src/app/shared/shared/addComps/new-method/new-method.component';
+import { DeleteCatComponent } from 'src/app/shared/shared/deleteComps/delete-cat/delete-cat.component';
+import { DeleteMethodComponent } from 'src/app/shared/shared/deleteComps/delete-method/delete-method.component';
 import { EditCategoryComponent } from 'src/app/shared/shared/edit-category/edit-category.component';
+import { NewAPIComponent } from 'src/app/shared/shared/new-api/new-api.component';
 
 @Component({
   selector: 'app-main',
@@ -168,6 +172,20 @@ export class MainComponent implements OnInit {
     this.endpointError = '';
   }
 
+  openEditGeneralAPI(api:any){
+    this.dialog.open(NewAPIComponent,{
+      restoreFocus: false,
+      width:'40%',
+      data: api
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getApiInfo(this.apiIdFromRoute);
+        this.getCategoriesInfo(this.apiIdFromRoute);
+        this.getEndpoints();
+      }
+    })
+  }
+
   openCategoryDialog(){
     this.dialog.open(EditCategoryComponent, {
       restoreFocus: false,
@@ -178,6 +196,81 @@ export class MainComponent implements OnInit {
     }).afterClosed().subscribe(val=>{
       if(val === 'save'){
         this.getCategoriesInfo(this.apiIdFromRoute);
+      }
+    })
+  }
+
+  openEditCategory(category: any){
+    this.dialog.open(EditCategoryComponent, {
+      restoreFocus: false,
+      data: {
+        route: null,
+        cat: category
+      },
+      width:'40%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getCategoriesInfo(this.apiIdFromRoute);
+      }
+    })
+  }
+
+  openDeleteCategory(id: Number){
+    this.dialog.open(DeleteCatComponent, {
+      restoreFocus: false,
+      data: id,
+      width:'30%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getApiInfo(this.apiIdFromRoute);
+        this.getCategoriesInfo(this.apiIdFromRoute);
+        this.getEndpoints();
+      }
+    })
+  }
+
+  openAddMethod(id:Number){
+    this.dialog.open(NewMethodComponent, {
+      restoreFocus: false,
+      data: {
+        edit: null,
+        id_cat: id
+      },
+      width:'50%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getApiInfo(this.apiIdFromRoute);
+        this.getCategoriesInfo(this.apiIdFromRoute);
+        this.getEndpoints();
+      }
+    })
+  }
+
+  openEditMethod(endpoint: any){
+    this.dialog.open(NewMethodComponent, {
+      restoreFocus: false,
+      data: {
+        edit: endpoint,
+        id_cat: null
+      },
+      width:'40%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getCategoriesInfo(this.apiIdFromRoute);
+      }
+    })
+  }
+
+  openDeleteMethod(id:Number){
+    this.dialog.open(DeleteMethodComponent, {
+      restoreFocus: false,
+      data: id,
+      width:'30%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getApiInfo(this.apiIdFromRoute);
+        this.getCategoriesInfo(this.apiIdFromRoute);
+        this.getEndpoints();
       }
     })
   }

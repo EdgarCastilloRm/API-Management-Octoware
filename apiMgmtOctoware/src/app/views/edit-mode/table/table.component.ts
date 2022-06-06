@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import * as _ from 'lodash';
 import { NewAPIComponent } from 'src/app/shared/shared/new-api/new-api.component';
+import { DeleteAPIComponent } from 'src/app/shared/shared/deleteComps/delete-api/delete-api.component';
 
 @Component({
   selector: 'app-table',
@@ -78,9 +79,24 @@ export class TableComponent implements OnInit {
     this.dataSource.data = this._dataSource.data
   }
   
-  openDialog() {
+  openCreateDialog() {
     this.dialog.open(NewAPIComponent, {
+      restoreFocus: false,
       width:'40%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getAllAPIs();
+      }
+    })
+  }
+
+  openDeleteDialog(id: Number) {
+    this.dialog.open(DeleteAPIComponent, {
+      restoreFocus: false,
+      data: {
+        id_api: id
+      },
+      width:'30%'
     }).afterClosed().subscribe(val=>{
       if(val === 'save'){
         this.getAllAPIs();

@@ -1,0 +1,15 @@
+<div>
+    <div style="text-align: center;">
+        <h1 style="font-weight: bold;">WARNING</h1>
+        <p>You're about to delete:</p>
+        <p>- Methods</p>
+        <p>- Method content</p>
+        <p>Once it is deleted, it cannot be recovered.</p>
+        <mat-checkbox class="example-margin" [checked]="disabled" (change)="disabled = !disabled" color="primary">Yes, I'm aware of this deletion.</mat-checkbox>
+    </div>
+    <div style="text-align: center; margin-top: 1rem;">
+        <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-raised-button style="margin-left: 10px;" color="primary" [disabled]="!disabled" (click)="deleteMethod()">Delete</button>
+    </div>
+    
+</div>

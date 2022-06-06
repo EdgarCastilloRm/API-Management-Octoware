@@ -14,6 +14,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { DeleteAPIComponent } from './deleteComps/delete-api/delete-api.component';
+import { DeleteCatComponent } from './deleteComps/delete-cat/delete-cat.component';
+import { NewMethodComponent } from './addComps/new-method/new-method.component';
+import { DeleteMethodComponent } from './deleteComps/delete-method/delete-method.component';
 
 
 
@@ -22,7 +26,11 @@ import { EditCategoryComponent } from './edit-category/edit-category.component';
     NavbarComponent,
     Page404Component,
     NewAPIComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    DeleteAPIComponent,
+    DeleteCatComponent,
+    NewMethodComponent,
+    DeleteMethodComponent
   ],
   imports: [
     CommonModule,
