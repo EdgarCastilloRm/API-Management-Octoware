@@ -1,25 +1,19 @@
 # API-Management-Octoware
+The repository content is conformed by the Octoware API Management Web App, created using Angular 13.
 
-## Reglas del Repo:
+### Structure
+It consists of a group of modules that represent the main routes of the app. Each of them has components inside, a component with the same name as module (view organization) and a main component which included the whole route content.
 
-1. main solo tendrá la versión en producción del proyecto.
-2. dev será la versión de prueba. Aquí se le aplicarán las pruebas que realicemos al sistema.
-3. Para crear una nueva branch se tiene que hacer con base a desarrollar una funcionalidad o módulo.
-4. El nombre de la nueva branch tiene que tener el nombre de la funcionalidad o módulo que hay que hacer.
-5. Cuando se acabé de desarrollar la nueva funcionalidad en esa branch se tienen que realizar las pruebas de unidad para comprobar que la funcionalidad cumple con los estándares.
-6. Si pasa satisfactoriamente todas las pruebas, se hará un merge/compare con la rama de dev.
-7. Si no hay conflicto se realizará el merge.
-8. Eliminar la rama de la funcionalidad o del módulo del repositorio.
-9. Después se tiene que hacer una Pull Request para la rama de dev.
-10. Aplicar pruebas de integración en la rama de dev y verificar y validar los cambios y que todas las funcionalidades previas no se hayan alterado.
-11. Hacer merge a la rama de main que será la nueva versión en producción.
+The app also has folders for services (dataService for manipulating database, storage service), models, guards and a shared module. This last element has components that are included in other modules, such as the navbar.
 
-## Reglas para el equipo:
-
-1. Hacer pull a la rama cada 30 minutos.
-2. Usar install packages para cualquier paquetería nueva implementada en el proyecto.
-3. Usar el gitignore para poner los archivos bullshit dentro.
-4. Mantener estándar de programación.
-5. Avisar por el grupo después de concluir con el desarrollo de una funcionalidad.
-6. Avisar por el grupo después de finalizar las pruebas a la funcionalidad.
-7. Avisar cuando se hagan merge, pull request o cerrar una rama.
+### Used Libraries
++ Angular material
++ Angularx-social-login
++ Chart.js
++ Crypto.js
++ ng2-charts
++ ng2-toastr
++ rxjs
++ secure-web-storage
++ sweetalert2
++ zone.js
