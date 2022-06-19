@@ -1,32 +1,40 @@
-<div>
-  <h1 mat-dialog-title>{{ titleText }}</h1>
-  <form [formGroup]="methodForm">
+<h1 mat-dialog-title>{{ titleText }}</h1>
+<div mat-dialog-content style="padding-left: 1rem; padding-right: 1rem">
+  <div [formGroup]="methodForm">
     <div style="text-align: center">
       <mat-form-field
         appearance="outline"
         style="margin-right: 0.5rem; width: 30%"
       >
         <mat-select formControlName="id_tipo_end" required>
-          <mat-option value="1" style="color: green; font-weight: bold"
+          <mat-option
+            type="number"
+            [value]="1"
+            style="color: green; font-weight: bold"
             >GET</mat-option
           >
-          <mat-option value="2" style="color: dodgerblue; font-weight: bold"
+          <mat-option
+            type="number"
+            [value]="2"
+            style="color: dodgerblue; font-weight: bold"
             >POST</mat-option
           >
-          <mat-option value="3" style="color: goldenrod; font-weight: bold"
+          <mat-option
+            type="number"
+            [value]="3"
+            style="color: goldenrod; font-weight: bold"
             >PUT</mat-option
           >
-          <mat-option value="4" style="color: red; font-weight: bold"
+          <mat-option
+            type="number"
+            [value]="4"
+            style="color: red; font-weight: bold"
             >DELETE</mat-option
           >
         </mat-select>
-        <mat-label><mat-icon>list</mat-icon>Method Type</mat-label>
+        <mat-label> <mat-icon>list</mat-icon>Method Type </mat-label>
       </mat-form-field>
-      <mat-form-field
-        appearance="outline"
-        class="demo-middle-width"
-        style="width: 68%"
-      >
+      <mat-form-field appearance="outline" style="width: 68%">
         <mat-label> Endpoint's name</mat-label>
         <input
           matInput
@@ -36,24 +44,16 @@
         />
       </mat-form-field>
     </div>
-  
+
     <div style="text-align: center">
-      <mat-form-field
-        appearance="fill"
-        class="demo-full-width"
-        style="width: 100%"
-      >
+      <mat-form-field appearance="fill" style="width: 100%">
         <mat-label>Method Description</mat-label>
         <textarea matInput formControlName="docum_end" required></textarea>
       </mat-form-field>
     </div>
-  
+
     <div>
-      <mat-form-field
-        appearance="outline"
-        class="demo-full-width"
-        style="width: 100%"
-      >
+      <mat-form-field appearance="outline" style="width: 100%">
         <mat-label>URL + extension</mat-label>
         <input
           matInput
@@ -63,92 +63,133 @@
         />
       </mat-form-field>
     </div>
-    <!-- 
-    <div class="param_container" style="margin-bottom: 1.3rem;">
-      <label> Params </label>
-      <button
-        mat-icon-button
-        color="primary"
-        aria-label="Add more params"
-        (click)="addParams()"
-      >
-        <mat-icon>add_box</mat-icon>
-      </button>
-      <section style="text-align: center;" *ngFor="let param of params; let i = index">
-        <button
-          mat-icon-button
-          color="accent"
-          aria-label="Delete params"
-          (click)="removeParams(i)"
+
+    <form [formGroup]="paramForm" style="margin-bottom: 1rem;" *ngIf="flag == true">
+      <div formArrayName="params">
+        <div style="margin-right: 16px; display: flex; align-items: center; justify-content: start;">
+          <label> Params </label>
+          <mat-icon
+            style="color: green; margin-left: 0.5rem; cursor: pointer"
+            (click)="addParam()"
+            >add_box
+          </mat-icon>
+        </div>
+        <div
+          *ngFor="let form of params.controls; let i = index"
         >
-          <mat-icon>delete_forever</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" style="width: 37%;">
-          <mat-label> Name </mat-label>
-          <input
-            matInput
-            placeholder="New param"
-            formControlName="name_param"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 20%">
-          <mat-select required>
-            <mat-option value="int">int</mat-option>
-            <mat-option value="string">string</mat-option>
-            <mat-option value="bool">bool</mat-option>
-            <mat-option value="object">object</mat-option>
-          </mat-select>
-          <mat-label><mat-icon>list</mat-icon> <b> Type </b></mat-label>
-        </mat-form-field>
-        <mat-checkbox>Required</mat-checkbox>
-      </section>
-    </div>
+          <div [formGroupName]="i" style="display: flex; align-items: center; justify-content: start">
+            <mat-form-field
+              appearance="outline"
+              style="width: 40%; margin-bottom: -1.25em; padding-right: 1rem"
+            >
+              <mat-label> Name </mat-label>
+              <input
+                matInput
+                formControlName="nombre_param"
+                placeholder="New param"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field
+              appearance="outline"
+              style="width: 15%; margin-bottom: -1.25em; padding-right: 1rem"
+            >
+              <mat-select formControlName="id_tipo_param" required>
+                <mat-option type="number" [value]="2">int</mat-option>
+                <mat-option type="number" [value]="1">string</mat-option>
+                <mat-option type="number" [value]="3">bool</mat-option>
+              </mat-select>
+              <mat-label>Type</mat-label>
+            </mat-form-field>
   
-    <div class="responses_container">
-      <label>Response</label>
-      <button
-        mat-icon-button
-        color="primary"
-        aria-label="Add more responses"
-        (click)="addResponses()"
-      >
-        <mat-icon>add_box</mat-icon>
-      </button>
-      <section
-        class="justify_content"
-        *ngFor="let response of responses; let i = index"
-      >
-        <button
-          *ngIf="i >= 1"
-          mat-icon-button
-          color="accent"
-          aria-label="Delete params"
-          (click)="removeResponses(i)"
+            <mat-checkbox
+            style="margin-left: 1rem"
+            formControlName="query"
+            >Query Param</mat-checkbox
+            >
+            <mat-checkbox
+              style="margin-left: 1rem"
+              formControlName="obligatorio_param"
+              >Required</mat-checkbox
+            >
+            <mat-icon
+              style="color: #c71717; margin-left: 0.5rem; cursor: pointer"
+              (click)="removeParam(i)"
+              >delete
+            </mat-icon>
+            <mat-icon
+              style="margin-left: 0.5rem; cursor: pointer"
+              color="primary"
+              matTooltipPosition="after"
+              (click)="saveParam(i)"
+              >save</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="responseForm" style="margin-bottom: 1rem;" *ngIf="flag == true">
+      <div formArrayName="responses">
+        <div style="margin-right: 16px; display: flex; align-items: center; justify-content: start;">
+          <label> Responses </label>
+          <mat-icon
+            style="color: green; margin-left: 0.5rem; cursor: pointer"
+            (click)="addResponse()"
+            >add_box
+          </mat-icon>
+        </div>
+        <div
+          *ngFor="let form2 of responses.controls; let i = index"
         >
-          <mat-icon>delete_forever</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" style="width: 78%; margin-right: 0.5rem;">
-          <mat-label> Name </mat-label>
-          <input
-            matInput
-            placeholder="New response"
-            formControlName="name_response"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 20%">
-          <mat-select required>
-            <mat-option value="int">int</mat-option>
-            <mat-option value="string">string</mat-option>
-            <mat-option value="bool">bool</mat-option>
-            <mat-option value="object">object</mat-option>
-          </mat-select>
-          <mat-label><mat-icon>list</mat-icon> <b> Type </b></mat-label>
-        </mat-form-field>
-      </section>
+          <div [formGroupName]="i" style="display: flex; align-items: center; justify-content: start">
+            <mat-form-field
+              appearance="outline"
+              style="width: 70%; margin-bottom: -1.25em; padding-right: 1rem"
+            >
+              <mat-label> Name </mat-label>
+              <input
+                matInput
+                formControlName="name_resp"
+                placeholder="New response"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field
+              appearance="outline"
+              style="width: 15%; margin-bottom: -1.25em; padding-right: 1rem"
+            >
+              <mat-select formControlName="id_tipo_param" required>
+                <mat-option type="number" [value]="2">int</mat-option>
+                <mat-option type="number" [value]="1">string</mat-option>
+                <mat-option type="number" [value]="3">bool</mat-option>
+              </mat-select>
+              <mat-label>Type</mat-label>
+            </mat-form-field>
+            <mat-icon
+              style="color: #c71717; margin-left: 0.5rem; cursor: pointer"
+              (click)="removeResponse(i)"
+              >delete
+            </mat-icon>
+            <mat-icon
+              style="margin-left: 0.5rem; cursor: pointer"
+              color="primary"
+              matTooltipPosition="after"
+              (click)="saveResponse(i)"
+              >save</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div style="text-align: center">
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Body Template</mat-label>
+        <textarea matInput formControlName="body" style="height: 4rem;"></textarea>
+      </mat-form-field>
     </div>
-    -->
+
     <div>
       <label> Code Samples </label>
     </div>
@@ -159,24 +200,25 @@
           style="width: 49%; margin-right: 0.5rem"
         >
           <mat-label> Request Sample </mat-label>
-          <textarea matInput formControlName="pruebas_end"></textarea>
+          <textarea matInput formControlName="pruebas_end" style="height: 4rem;"></textarea>
         </mat-form-field>
+
         <mat-form-field appearance="fill" style="width: 49%">
           <mat-label> Response Sample </mat-label>
-          <textarea matInput formControlName="expected_ans"></textarea>
+          <textarea matInput formControlName="expected_ans" style="height: 4rem;"></textarea>
         </mat-form-field>
       </div>
     </div>
-    <div mat-dialog-action [align]="'end'">
-      <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
-      <button
-        mat-raised-button
-        style="margin-left: 10px"
-        color="primary"
-        (click)="addMethod()"
-      >
-        {{ actionBtn }}
-      </button>
-    </div>
-  </form>
+  </div>
+</div>
+<div mat-dialog-action [align]="'end'" style="margin-top: 1rem">
+  <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    style="margin-left: 10px"
+    color="primary"
+    (click)="addMethod()"
+  >
+    {{ actionBtn }}
+  </button>
 </div>

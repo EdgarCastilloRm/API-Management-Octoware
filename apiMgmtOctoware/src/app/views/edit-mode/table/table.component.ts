@@ -58,8 +58,7 @@ export class TableComponent implements OnInit {
   }
 
   openDetailedEdit(data: TableData){
-    const url = this.router.serializeUrl(this.router.createUrlTree(['edit/' + data.id_api]));
-    window.open(url, '_blank');
+    this.router.navigate(['edit/' + data.id_api]);
   }
 
   selected = 'all';

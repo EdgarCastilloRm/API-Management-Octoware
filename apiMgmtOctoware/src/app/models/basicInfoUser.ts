@@ -2,7 +2,7 @@ export interface UserInfo {
     id_usr:     number;
     nombre_usr:     string;
     email:      string;
-    estatus: boolean;
+    status: boolean;
     tipo_usr:   string;
 }
 
@@ -15,7 +15,7 @@ export interface AllUserInfo {
     id_usr: number;
     nombre_usr: string;
     email:      string;
-    estatus: boolean
+    status: boolean
     id_tipo_usr:   number;
 }
 
@@ -25,6 +25,7 @@ export interface FavApiUsrResponse{
 }
 
 export interface FavApiUsr {
+    id_api: number;
     nombre_api: string;
     disp_api: string;
     ult_conexion_api: string;

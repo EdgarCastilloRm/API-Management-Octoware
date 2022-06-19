@@ -212,3 +212,18 @@ mat-sidenav-container {
   .finish{
     float: right;
   }
+
+  .query {
+    grid-area: query;
+  }
+  
+  .path{
+    grid-area: path;
+  }
+  
+  .grid-container2 {
+    display: grid;
+    gap: .5rem;
+    grid-template:
+    "path query" 50%
+  }

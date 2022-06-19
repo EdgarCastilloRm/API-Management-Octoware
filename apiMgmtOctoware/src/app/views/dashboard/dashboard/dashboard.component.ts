@@ -5,6 +5,10 @@ import { MatTableDataSource} from '@angular/material/table';
 import { DataService } from 'src/app/services/data.service';
 import * as _ from 'lodash'
 import { FavApiUsr } from 'src/app/models/basicInfoUser';
+import { Router } from '@angular/router';
+import { TableData } from 'src/app/models/catalogTableData';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,31 +16,9 @@ import { FavApiUsr } from 'src/app/models/basicInfoUser';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  
-  displayedColumns: string[] = ['nombre_api', 'disp_api', 'ult_conexion_api', 'version_api'];
-  dataSource!: MatTableDataSource<FavApiUsr>;
-
-  constructor( private dataService: DataService) { }
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) matSort! : MatSort;
-
-  userData = this.dataService.getJsonValue('currentUser');
 
   ngOnInit(): void {
-    this.getAllFavs();
+
   }
   
-  getAllFavs() {
-    this.dataService.getFavs(this.userData.id_usr ).subscribe({
-      next:(res)=>{
-        this.dataSource = new MatTableDataSource(res.entries);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.matSort;
-      },
-      error: (err)=>{
-        alert("Error while fetching data.");
-      }
-    })
-  }
 }

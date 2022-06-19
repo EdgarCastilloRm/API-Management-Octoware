@@ -1,20 +1,11 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav mode="side" opened *ngIf="dataSource">
     <button
       mat-button
       (click)="getApiInfo(dataSource.id_api)"
       class="title_sidebar_btn"
     >
       <h1 class="title_sidebar">{{ dataSource.nombre_api }}</h1>
-    </button>
-    <button mat-icon-button (click)="toggleSelected()">
-      <mat-icon *ngIf="selected" aria-label="Fav button" class="red_bookmark">
-        star
-      </mat-icon>
-    
-      <mat-icon *ngIf="!selected" aria-label="Fav button" style="font-size: 2rem">
-        star_border
-      </mat-icon>
     </button>
     <h1 class="title_sidebar version">{{ dataSource.version_api }}</h1>
     <div
@@ -67,6 +58,23 @@
     <mat-card class="example-card" *ngSwitchCase="'true'" dynamicHeight>
       <mat-card-title>
         <h1 class="apiTitle">{{ dataSource.nombre_api }}</h1>
+        <button mat-icon-button (click)="toggleSelected()">
+          <mat-icon
+            *ngIf="selected"
+            aria-label="Fav button"
+            class="red_bookmark"
+          >
+            star
+          </mat-icon>
+
+          <mat-icon
+            *ngIf="!selected"
+            aria-label="Fav button"
+            style="font-size: 2rem"
+          >
+            star_border
+          </mat-icon>
+        </button>
       </mat-card-title>
       <mat-card-subtitle> API </mat-card-subtitle>
       <hr />
@@ -99,8 +107,8 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-tab-group *ngSwitchCase="'false'" >
-      <mat-tab label="Info" >
+    <mat-tab-group *ngSwitchCase="'false'">
+      <mat-tab label="Info">
         <mat-card class="example-card grid-container">
           <div class="titles">
             <mat-card-title>
@@ -125,18 +133,44 @@
               <mat-card-subtitle *ngIf="dataSource.api_key == 'NA'">
                 {{ dataSource.api_key }}
               </mat-card-subtitle>
-              <h3>Query</h3>
-              <mat-card-subtitle *ngFor="let param of params"
-                >{{ param.nombre_param }}
-                <b>{{ param.tipo_param }}</b></mat-card-subtitle
-              >
+              <h3>Parameters</h3>
+              <div class="grid-container2" style="width: 90%; margin-bottom: 4px;">
+                <div class="path" style="text-align: center;">
+                  <h4 style=" background-color: #f5f5f6; font-weight: bold; border-bottom: 1px solid lightgray;">Path Params</h4>
+                  <div *ngFor="let param of pathParams">
+                    <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)"
+                      >- {{ param.nombre_param }}
+                      <b>{{ param.tipo_param }}</b></p>
+                  </div>
+                  <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)" *ngIf="pathParams.length == 0"
+                  >No path params provided.</p>
+                </div>
+
+                <div class="query" style="text-align: center;">
+                  <h4 style=" background-color: #f5f5f6; font-weight: bold; border-bottom: 1px solid lightgray">Query Params</h4>
+                  <div *ngFor="let param of queryParams">
+                    <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)" 
+                      >- {{ param.nombre_param }}
+                      <b>{{ param.tipo_param }}</b></p
+                    >
+                  </div>
+                  <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)" *ngIf="queryParams.length == 0"
+                  >No query params provided.</p
+                  >
+                </div>
+              </div>
+
               <h3>Responses</h3>
               <mat-card-subtitle *ngFor="let resp of responses"
                 >{{ resp.name_resp }}
                 <b>{{ resp.tipo_param }}</b></mat-card-subtitle
               >
+              <mat-card-subtitle *ngIf="responses.length == 0">
+                No responses provided.
+              </mat-card-subtitle>
             </mat-card-content>
           </div>
+
           <div class="examples">
             <h4 class="Request">Request Example</h4>
             <mat-card class="mini_card">
@@ -160,51 +194,139 @@
       <mat-tab label="Make Request">
         <mat-card>
           <mat-card-content>
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-3">
-                  <mat-form-field
-                    style="margin: 5px; width: 10%"
-                    appearance="outline"
-                    class="w-100"
-                  >
-                    <mat-label>Request Method</mat-label>
-                    <mat-select [(value)]="selectedRequestMethod">
-                      <mat-option
-                        *ngFor="let method of requestMethods"
-                        [value]="method"
-                      >
-                        {{ method }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field
-                    style="margin: 5px; width: 80%"
-                    appearance="outline"
-                    class="w-100"
-                  >
-                    <mat-label>API Endpoint</mat-label>
-                    <input
-                      type="url"
-                      matInput
-                      placeholder="Enter URL here..."
-                      #end="ngModel"
-                      [(ngModel)]="endpointURL"
-                    />
-                  </mat-form-field>
-                </div>
+            <div>
+              <div>
+                <mat-label
+                  style="
+                    margin: 5px;
+                    width: 10%;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                  "
+                  appearance="outline"
+                >
+                  {{ selectedRequestMethod }}
+                </mat-label>
+                <mat-form-field
+                  style="margin: 5px; width: 90%; font-size: 1rem"
+                  appearance="outline"
+                >
+                  <mat-label>API Endpoint</mat-label>
+                  <input
+                    type="url"
+                    matInput
+                    placeholder="Enter URL here..."
+                    #end="ngModel"
+                    [(ngModel)]="endpointURL"
+                  />
+                </mat-form-field>
               </div>
 
-              <button
-                mat-flat-button
-                [disabled]="!endpointURL"
-                color="primary"
-                (click)="sendRequest()"
-              >
-                SEND REQUEST
-              </button>
-              <br />
-              <br />
+              <div>
+                <mat-tab-group mat-align-tabs="start" dynamicHeight>
+                  <mat-tab label="Path Params">
+                    <div style="padding: 1rem">
+                      <mat-card-subtitle *ngFor="let param of pathParams"
+                        >- {{ param.nombre_param }}
+                        <b>{{ param.tipo_param }}</b><i style="color:darkred" *ngIf="param.obligatorio_param == true"> Required</i></mat-card-subtitle
+                      >
+                      <p style="color: rgba(0, 0, 0, 0.54)" *ngIf="pathParams.length == 0"
+                      >No path params provided.</p
+                      >
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Query Params">
+                    <section style="padding: 1rem">
+                      <form>
+                        <div *ngFor="let param of queryParams; let i = index">
+                          <mat-form-field
+                            appearance="outline"
+                            style="width: 50%"
+                          >
+                            <mat-label>{{ param.nombre_param }}</mat-label>
+                            <input
+                              *ngIf="param.obligatorio_param == true"
+                              matInput
+                              #endpoint
+                              required
+                              [(ngModel)]="input[i]"
+                              [ngModelOptions]="{ standalone: true }"
+                            />
+                            <input
+                              *ngIf="param.obligatorio_param == false"
+                              matInput
+                              #endpoint
+                              [(ngModel)]="input[i]"
+                              [ngModelOptions]="{ standalone: true }"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <p style="color: rgba(0, 0, 0, 0.54)" *ngIf="queryParams.length == 0"
+                        >No query params provided.</p
+                        >
+                      </form>
+                    </section>
+                  </mat-tab>
+                  <mat-tab label="Headers">
+                    <section style="padding: 1rem">
+                      <button mat-raised-button style="color:white; background-color: green;" (click)="addHeader()">Add Header</button>
+                      <form style="margin: 0.5rem; margin-left: 0;">
+                        <div *ngFor="let header of headers; let i = index">
+                          <mat-form-field
+                            appearance="outline"
+                            style="width: 45%"
+                          >
+                            <mat-label>Header Name</mat-label>
+                            <input
+                              matInput
+                              #endpoint
+                              required
+                              [(ngModel)]="headers[i].nombre"
+                              [ngModelOptions]="{ standalone: true }"
+                            />
+                          </mat-form-field>
+                          <mat-form-field
+                          appearance="outline"
+                          style="width: 45%; margin-left: 1rem;"
+                        >
+                          <mat-label>Header Content</mat-label>
+                          <input
+                            matInput
+                            #endpoint
+                            required
+                            [(ngModel)]="headers[i].key"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                          </mat-form-field>
+                          <button style="margin-left: 1rem; font-size: 3rem;" mat-icon-button color="warn" (click)="removeHeader(i)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </form>
+                    </section>
+                  </mat-tab>
+
+                  <mat-tab label="Body">
+                    <div style="text-align: center; margin: 1rem;">
+                      <mat-form-field appearance="fill" style="width: 100%">
+                        <mat-label>Body Template</mat-label>
+                        <textarea matInput style="height: 10rem;" [(ngModel)]="body"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+
+              <div style="margin-bottom: 1rem">
+                <button
+                  mat-flat-button
+                  [disabled]="!endpointURL"
+                  color="primary"
+                  (click)="sendRequest()"
+                >
+                  SEND REQUEST
+                </button>
+              </div>
               <div
                 class="w-100"
                 style="background-color: black; padding: 1rem; min-height: 5rem"

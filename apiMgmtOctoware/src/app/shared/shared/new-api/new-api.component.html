@@ -18,9 +18,13 @@
             <textarea formControlName="descripcion_api" matInput></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>API Key</mat-label>
-          <input formControlName="api_key" matInput placeholder="NA">
-      </mat-form-field>
+            <mat-label>URL for Availability</mat-label>
+            <input formControlName="url_prueba" matInput placeholder="Add a valid URL to check API Availability (GET Method)">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>API Key</mat-label>
+            <input formControlName="api_key" matInput placeholder="NA">
+        </mat-form-field>
     </form>
 </div>
 <div mat-dialog-action [align]="'end'">

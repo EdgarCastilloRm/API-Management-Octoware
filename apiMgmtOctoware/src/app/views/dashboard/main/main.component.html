@@ -1,0 +1,76 @@
+<body class="grid-container" style="margin: 0.5rem">
+  <div class="recom" style="display: flex; justify-content: center;">
+    <mat-card class="mat-elevation-z8" style="margin: 1rem; height: 90%; width: 95%; background-color: #e9e9e9;">
+      <h1 style="display: flex; align-items: center;"><button mat-icon-button disabled style="margin-right: 0.5rem ;"> <mat-icon style="font-size: 2rem; color:darkred;">report</mat-icon></button>API to review</h1>
+      <h2 style="font-size: 2rem;">{{reviewAPI.nombre_api}}</h2>
+      <h3 style="font-size: 1.5rem;">
+        Availability: {{reviewAPI.disp_api}}
+      </h3>
+      <h3 style="font-size: 1.5rem;">Last Connection: {{reviewAPI.ult_conexion_api | date: "medium" }}</h3>
+      <h3 style="font-size: 1.5rem;">Base URL: {{reviewAPI.url_base}}</h3>
+      <div style="display: flex; justify-content: right">
+        <button mat-raised-button color="primary" (click)="showDetailedAPI(reviewAPI.id_api)" style="font-size: 1.2rem;" >Go to details</button>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="conta" style="display: flex; justify-content: center;">
+    <mat-card class="mat-elevation-z8" style="margin: 1rem; height: 90%; width: 95%; overflow: hidden; background-color: #e9e9e9;">
+      <h1 style="margin: 0;">Statistics</h1>
+      <div class="pie-chart-container" style="display: flex; justify-content: center; margin-bottom: 1rem;" *ngIf="flag">
+        <canvas baseChart
+          [data]=methodsData
+          [type]="'pie'"
+          [options]="chartOptions"
+        ></canvas>
+      </div>
+      <h2>Total number of APIs: {{apiCount.apis}}</h2>
+    </mat-card>
+  </div>
+
+
+
+  <div class="tabla" style="display: flex; justify-content: center; overflow-y:auto">
+    <mat-card class="mat-elevation-z8" style="margin: 1rem; height:fit-content; width: 100% ;background-color: #e9e9e9; ">
+      <div class="container">
+        <h1>Favorite APIs</h1>
+        <div style="margin-left:1.5rem; margin-bottom: 1rem;">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="nombre_api">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                API Name
+              </th>
+              <td mat-cell *matCellDef="let fav">{{ fav.nombre_api }}</td>
+            </ng-container>
+            <ng-container matColumnDef="disp_api">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                Availability
+              </th>
+              <td mat-cell *matCellDef="let fav">
+                <button *ngIf="fav.disp_api == 'Yes'" mat-icon-button disabled> <mat-icon style="font-size: 1.2rem; color: green;">check_circle</mat-icon></button>
+                <button *ngIf="fav.disp_api == 'No'" mat-icon-button disabled> <mat-icon style="font-size: 1.3rem; color:darkred;">report</mat-icon></button>
+                {{fav.disp_api}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="ult_conexion_api">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>
+                Last Connection
+              </th>
+              <td mat-cell *matCellDef="let fav">
+                {{ fav.ult_conexion_api | date: "medium" }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="version_api">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>Version</th>
+              <td mat-cell *matCellDef="let fav">{{ fav.version_api }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr (click)="showDetailedProduct(row)" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</body>

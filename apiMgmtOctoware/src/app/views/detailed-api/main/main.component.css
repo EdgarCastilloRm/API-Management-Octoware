@@ -1,4 +1,9 @@
 /* General */
+.param{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
 mat-sidenav-container {
   height: 100%;
@@ -202,6 +207,21 @@ h3 {
   grid-template:
   "titles titles" auto
   "info examples" auto;
+}
+
+.query {
+  grid-area: query;
+}
+
+.path{
+  grid-area: path;
+}
+
+.grid-container2 {
+  display: grid;
+  gap: .5rem;
+  grid-template:
+  "path query" 50%
 }
 
 .finish{

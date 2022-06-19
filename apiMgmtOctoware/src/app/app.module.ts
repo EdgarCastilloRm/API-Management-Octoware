@@ -13,6 +13,7 @@ import { DetailedApiModule } from './views/detailed-api/detailed-api.module';
 import { EditModeModule } from './views/edit-mode/edit-mode.module';
 import { EditApiModule } from './views/edit-api/edit-api.module';
 import { UserManagementModule } from './views/user-management/user-management.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserManagementModule } from './views/user-management/user-management.mo
     SharedModule,
     DetailedApiModule,
     EditApiModule,
-    UserManagementModule
+    UserManagementModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,40 @@
+.container{
+    max-width: 90%;
+    margin: 2rem auto;
+}
+
+table {
+    width: 100%;
+}
+
+th{
+    background-color: #C6C6C6;
+    font-size: medium;
+}
+
+.color-user{
+    color: #002171;
+    font-size:1rem;
+    
+}
+
+.color-admin{
+    color: #c75b39;
+    font-size:1rem;
+}
+
+.color-super{
+    color: #C6C6C6;
+    font-style: 1rem;
+}
+h4 {
+    margin: 0;
+}
+
+.mat-row:hover .mat-cell {
+    border-color: currentColor;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    background-color: #E1DDDD;
+    opacity: 90%;
+}

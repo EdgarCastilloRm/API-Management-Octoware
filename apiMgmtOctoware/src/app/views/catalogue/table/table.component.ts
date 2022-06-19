@@ -38,11 +38,53 @@ export class TableComponent implements OnInit {
         this.trueDataSource = new MatTableDataSource(res.entries);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.matSort;
+        for (let index = 0; index < res.entries.length; index++) {
+          const element = res.entries[index];
+          this.checkAllAPIDisp(element);
+        }
       },
       error: (err)=>{
         alert("Error while fetching data.");
       }
     })
+  }
+
+  reload(){
+    this.api.getAPIs()
+    .subscribe({
+      next:(res)=>{
+        this.dataSource = new MatTableDataSource(res.entries);
+        this._dataSource = new MatTableDataSource(res.entries);
+        this.trueDataSource = new MatTableDataSource(res.entries);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.matSort;
+      },
+      error: (err)=>{
+        alert("Error while fetching data.");
+      }
+    })
+  }
+
+  checkAllAPIDisp(data: TableData){
+    this.api.checkAvailability(data.url_prueba, data.api_key).subscribe({
+      next:(res)=>{
+        this.updateDisp(data, "success");
+      },
+      error:(err)=>{
+        this.updateDisp(data, "error");
+      }
+    });
+  }
+
+  updateDisp(data: TableData, state: string){
+    this.api.updateDisp(data.id_api, state, data.ult_conexion_api).subscribe({
+      next:(res)=>{
+        this.reload();
+      },
+      error:(err)=>{
+        alert("Error while fetching data.");
+      }
+    });
   }
 
   searchBar(event: Event){
@@ -55,8 +97,7 @@ export class TableComponent implements OnInit {
   }
 
   showDetailedProduct(data: TableData){
-    const url = this.router.serializeUrl(this.router.createUrlTree(['apis/' + data.id_api]));
-    window.open(url, '_blank');
+    this.router.navigate(['apis/' + data.id_api]);
   }
 
   selected = 'all';

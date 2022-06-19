@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { DetailedAPI, Categories, Endpoints, Param, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
+import { DetailedAPI, Categories, Endpoints, Params, SpecificEndpoint, Resp } from 'src/app/models/detailedApiData';
 import { DataService } from 'src/app/services/data.service';
 import { NewMethodComponent } from 'src/app/shared/shared/addComps/new-method/new-method.component';
 import { DeleteCatComponent } from 'src/app/shared/shared/deleteComps/delete-cat/delete-cat.component';
@@ -27,8 +27,10 @@ export class MainComponent implements OnInit {
   dataSource!: DetailedAPI;
   categories!: Categories[];
   endpoints!: Endpoints[];
-  params!: Param[];
-  responses!: Resp[]
+  params!: Params[];
+  pathParams: Params[] = [];
+  queryParams: Params[] = [];
+  responses!: Resp[];
   flag_is_api!: string;
   apiIdFromRoute! : Number;
 
@@ -124,6 +126,15 @@ export class MainComponent implements OnInit {
     .subscribe({
       next:(res)=>{
         this.selectedEndpoint = res;
+        this.queryParams = [];
+        this.pathParams = [];
+        for (let index = 0; index < this.params.length; index++) {
+          if(this.params[index].query==true){
+            this.queryParams.push(this.params[index]);
+          }else{
+            this.pathParams.push(this.params[index]);
+          }
+        }
         this.flag_is_api = 'false';
       },
       error: (err)=>{
@@ -137,39 +148,6 @@ export class MainComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     const urlRegExp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
     return urlRegExp.test(text);
-  }
-
-  sendRequest() {
-    this.endpointError = '';
-    this.responseData = '';
-    this.responseError = ''; 
-
-    if (!this.validateUrl(this.endpointURL)) {
-      this.endpointError = 'Ingresa un URL válido';
-      return;
-    }
-
-    this.loadingState = true;
-    switch (this.selectedRequestMethod) {
-      case 'GET': {
-        this.dataService.sendGetRequest(
-          this.endpointURL
-        ).subscribe(
-          data => {
-            this.loadingState = false;
-            this.responseData = JSON.stringify(data, undefined, 4);
-          },
-          error => {
-            this.loadingState = false;
-            this.responseError = JSON.stringify(error, undefined, 4);
-          }
-        );
-        break;
-      }
-    }
-
-    this.selectedRequestMethod = 'GET';
-    this.endpointError = '';
   }
 
   openEditGeneralAPI(api:any){
@@ -251,12 +229,16 @@ export class MainComponent implements OnInit {
       restoreFocus: false,
       data: {
         edit: endpoint,
+        array: this.params,
+        array2: this.responses,
         id_cat: null
       },
-      width:'40%'
+      width:'50%'
     }).afterClosed().subscribe(val=>{
       if(val === 'save'){
+        this.getApiInfo(this.apiIdFromRoute);
         this.getCategoriesInfo(this.apiIdFromRoute);
+        this.getEndpoints();
       }
     })
   }

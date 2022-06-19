@@ -27,7 +27,6 @@
   
   .main {
     grid-area: main;
-    background-color: wheat;
     overflow-y:hidden;
   }
   

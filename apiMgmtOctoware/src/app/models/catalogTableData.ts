@@ -10,4 +10,17 @@ export interface TableData {
     seguridad_api:    boolean;
     ult_conexion_api: Date;
     version_api:      string;
+    url_base:         string;
+    url_prueba:       string;
+    api_key:          string;
+    descripcion_api:  string;
+}
+
+export interface APICount {
+    apis: number;
+}
+
+export interface MethodCount{
+    tipo_end: string;
+    methods: number;
 }

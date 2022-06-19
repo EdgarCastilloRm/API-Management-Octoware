@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserInfo } from 'src/app/models/basicInfoUser';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -31,41 +32,45 @@ export class LoginComponent implements OnDestroy {
     this.authSub.unsubscribe();
   }
 
-  signInGoogle(): void {
-    this.authSub = this.authService.authState.subscribe((user) => {
-      this.user = user;
-      if (user != null) {
-        this.registerUser();
-        this.getUserData();
-        this.getToken();
+  signInGoogle():void{
+    this.authSub = this.authService.authState.subscribe({
+      next: (res) => {
+        this.user = res;
+        if (this.user != null) {
+          this.registerUser();
+        }
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
       }
     });
-    
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
-
-  signInMS(): void {
-    this.authSub = this.authService.authState.subscribe((user) => {
-      this.user = user;
-      if (user != null) {
-        this.registerUser();
-        this.getUserData();
-        this.getToken();
-      }
-    });
-    
-    this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID);
-  }
-
-  registerUser(){
+  
+  registerUser(): void{
     var body = {
       nombre_usr: this.user.name,
       email: this.user.email,
       id_tipo_usr: 1
     }
-    this.dataService.registerUser(body).subscribe((response) => {
-      console.log(response);
+    this.dataService.registerUser(body).subscribe({
+      next: (res) => {
+        this.getUserData();
+      }
     });
+  }
+
+  getUserData(){
+    this.dataService.getUserData(this.user.email).subscribe({
+      next: (response) => {
+        this.basicInfo ={
+          id_usr: response[0].id_usr,
+          nombre_usr: response[0].nombre_usr,
+          email: response[0].email,
+          status: response[0].status,
+          tipo_usr: response[0].tipo_usr
+        }
+        this.dataService.setJsonValue('currentUser', this.basicInfo);
+        this.getToken();
+      }
+    })
   }
 
   getToken() {
@@ -89,17 +94,14 @@ export class LoginComponent implements OnDestroy {
     }
   }
 
-  getUserData(){
-    this.dataService.getUserData(this.user.email).subscribe((response: UserInfo[])=>{
-      if(response){
-        this.basicInfo ={
-          id_usr: response[0].id_usr,
-          nombre_usr: response[0].nombre_usr,
-          email: response[0].email,
-          estatus: response[0].estatus,
-          tipo_usr: response[0].tipo_usr
+  signInMS(): void{
+    this.authSub= this.authService.authState.subscribe({
+      next: (res) => {
+        this.user = res;
+        if (this.user != null) {
+          this.registerUser();
         }
-        this.dataService.setJsonValue('currentUser', this.basicInfo);
+        this.authService.signIn(MicrosoftLoginProvider.PROVIDER_ID);
       }
     });
   }

@@ -1,0 +1,73 @@
+table {
+    width: 100%;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  background-color: #E1DDDD;
+  opacity: 50%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.container{
+  max-width: 95%;
+  margin: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding:0;
+}
+
+html {
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+  overflow:hidden;
+}
+
+.grid-container {
+  display: grid;
+  gap: 0px;
+  grid-template-areas:
+      "navbar"
+      "tabla"
+      "recom"
+      "conta";
+}
+
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template:
+      "conta   recom   recom"     50%
+      "tabla    tabla   tabla"    auto
+  }
+}
+
+.tabla {
+  grid-area: tabla;
+  /* height: fit-content; */
+}
+.recom {
+  grid-area: recom;
+  /* height: fit-content; */
+  /* margin: auto; */
+}
+.conta {
+  grid-area: conta;
+  width: 100%;
+  height: 100%;
+}

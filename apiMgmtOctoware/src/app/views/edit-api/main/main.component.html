@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav mode="side" opened *ngIf="dataSource">
     <button
       mat-button
       (click)="getApiInfo(dataSource.id_api)"
@@ -56,9 +56,6 @@
     dynamicHeight
   >
     <mat-card class="example-card" *ngSwitchCase="'true'" dynamicHeight>
-      <div class="finish">
-        <button mat-raised-button style="background-color: #c75b39; color: white">Finish Edition</button>
-      </div>
       <mat-card-title>
         <div style="margin-right: 16px; display: flex; align-items: center; justify-content: start;">
           <h1 class="apiTitle">{{ dataSource.nombre_api }}</h1>
@@ -98,9 +95,6 @@
 
     <mat-card *ngSwitchCase="'false'" class="example-card grid-container">
       <div class="titles">
-        <div class="finish">
-          <button mat-raised-button style="background-color: #c75b39; color: white">Finish Edition</button>
-        </div>
         <mat-card-title>
           <div style="margin-right: 16px; display: flex; align-items: center; justify-content: start;">
             <h1 class="apiTitle">{{ selectedEndpoint.nombre_end }}</h1>
@@ -125,16 +119,41 @@
           <mat-card-subtitle *ngIf="dataSource.api_key == 'NA'">
             {{ dataSource.api_key }}
           </mat-card-subtitle>
-          <h3>Query</h3>
-          <mat-card-subtitle *ngFor="let param of params"
-            >{{ param.nombre_param }}
-            <b>{{ param.tipo_param }}</b></mat-card-subtitle
-          >
+          <h3>Parameters</h3>
+          <div class="grid-container2" style="width: 90%; margin-bottom: 4px;">
+            <div class="path" style="text-align: center;">
+              <h4 style=" background-color: #f5f5f6; font-weight: bold; border-bottom: 1px solid lightgray;">Path Params</h4>
+              <div *ngFor="let param of pathParams">
+                <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)"
+                  >- {{ param.nombre_param }}
+                  <b>{{ param.tipo_param }}</b></p>
+              </div>
+              <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)" *ngIf="pathParams.length == 0"
+              >No path params provided.</p>
+            </div>
+
+            <div class="query" style="text-align: center;">
+              <h4 style=" background-color: #f5f5f6; font-weight: bold; border-bottom: 1px solid lightgray">Query Params</h4>
+              <div *ngFor="let param of queryParams">
+                <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)" 
+                  >- {{ param.nombre_param }}
+                  <b>{{ param.tipo_param }}</b></p
+                >
+              </div>
+              <p style="border-bottom: 1px solid lightgray; color: rgba(0, 0, 0, 0.54)" *ngIf="queryParams.length == 0"
+              >No query params provided.</p
+              >
+            </div>
+          </div>
+
           <h3>Responses</h3>
           <mat-card-subtitle *ngFor="let resp of responses"
             >{{ resp.name_resp }}
             <b>{{ resp.tipo_param }}</b></mat-card-subtitle
           >
+          <mat-card-subtitle *ngIf="responses.length == 0">
+            No responses provided.
+          </mat-card-subtitle>
         </mat-card-content>
       </div>
       <div class="examples">

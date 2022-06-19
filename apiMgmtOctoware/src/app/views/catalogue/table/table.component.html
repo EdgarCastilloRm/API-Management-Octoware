@@ -33,7 +33,11 @@
       <!-- Name Column -->
       <ng-container matColumnDef="disp_api">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Availability</th>
-        <td mat-cell *matCellDef="let element">{{ element.disp_api }}</td>
+        <td mat-cell *matCellDef="let element">
+          <button *ngIf="element.disp_api == 'Yes'" mat-icon-button disabled> <mat-icon style="font-size: 1.2rem; color: green;">check_circle</mat-icon></button>
+          <button *ngIf="element.disp_api == 'No'" mat-icon-button disabled> <mat-icon style="font-size: 1.3rem; color:darkred;">report</mat-icon></button>
+          {{ element.disp_api }}
+        </td>
       </ng-container>
 
       <!-- Weight Column -->

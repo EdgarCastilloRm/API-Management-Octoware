@@ -33,7 +33,8 @@ export class NewAPIComponent implements OnInit {
       version_api: [null, Validators.required],
       url_base: [null, Validators.required],
       descripcion_api: [null, Validators.required],
-      api_key: [null]
+      api_key: [null],
+      url_prueba: [null, Validators.required]
     });
 
     if(this.editData){
@@ -44,6 +45,7 @@ export class NewAPIComponent implements OnInit {
       this.apiForm.controls['url_base'].setValue(this.editData.url_base);
       this.apiForm.controls['descripcion_api'].setValue(this.editData.descripcion_api);
       this.apiForm.controls['api_key'].setValue(this.editData.api_key);
+      this.apiForm.controls['url_prueba'].setValue(this.editData.url_prueba);
     }
   }
 
